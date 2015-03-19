@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Model;
+using NLog;
 
 namespace MultiMeter
 {
@@ -25,6 +26,13 @@ namespace MultiMeter
         {
             InitializeComponent();
             var dummy = new AccessDevice();
+            dummy.NewMeasurement += dummy_NewMeasurement;
+        }
+
+        void dummy_NewMeasurement(object sender, NewMeasureValueEventArgs e)
+        {
+            var logger = LogManager.GetLogger(GetType().Name);
+            logger.Log(LogLevel.Info, e.Value.ToString());
         }
     }
 }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiMeter", "MultiMeter.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "..\Model\Model.csproj", "{F6EBA294-A69B-468E-AF33-2374FE54D68C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "..\Interface\Interface.csproj", "{52940EC4-B3F7-41B8-A94F-D5787509590D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F6EBA294-A69B-468E-AF33-2374FE54D68C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6EBA294-A69B-468E-AF33-2374FE54D68C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6EBA294-A69B-468E-AF33-2374FE54D68C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52940EC4-B3F7-41B8-A94F-D5787509590D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52940EC4-B3F7-41B8-A94F-D5787509590D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52940EC4-B3F7-41B8-A94F-D5787509590D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52940EC4-B3F7-41B8-A94F-D5787509590D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

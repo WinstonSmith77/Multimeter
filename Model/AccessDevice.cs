@@ -11,15 +11,20 @@ namespace Model
     {
         public AccessDevice()
         {
-           var ports = SerialPort.GetPortNames();
+            var ports = SerialPort.GetPortNames();
 
             if (ports.Count() != 1)
             {
                 throw new ArgumentException("Wrong number of ports!");
             }
 
+            _port = InitComPort(ports.First());
+            _port.Open();
+        }
 
-            _port = new SerialPort
+        private SerialPort InitComPort(string name)
+        {
+            SerialPort port = new SerialPort
             {
                 BaudRate = 2400,
                 Parity = Parity.None,
@@ -29,27 +34,47 @@ namespace Model
                 DtrEnable = true,
                 ReadTimeout = 500,
                 WriteTimeout = 500,
-                PortName = ports.First()
+                PortName = name
             };
+            port.DataReceived += _port_DataReceived;
 
-
-            _port.PinChanged += _port_PinChanged;
-            _port.DataReceived += _port_DataReceived;
-            var buffer = new byte[14];
-            _port.Open();
-            _port.Read(buffer, 0, 0);
+            return port;
         }
 
-        void _port_PinChanged(object sender, SerialPinChangedEventArgs e)
-        {
-          
-        }
+        private const int LengthOfMeasurent = 14;
+        private readonly List<byte> _buffer = new List<byte>();
 
         void _port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            var ffgfgf = _port.ReadExisting();
-           
+            lock (_buffer)
+            {
+                var currentRead = new byte[_port.BytesToRead];
+                _port.Read(currentRead, 0, currentRead.Count());
+                _buffer.AddRange(currentRead);
+            }
+
+            FindNewMeasureValues();
         }
+
+        private void FindNewMeasureValues()
+        {
+            for (; ; )
+            {
+                if (_buffer.Count < LengthOfMeasurent)
+                {
+                    break;
+                }
+                var measureValue = new MeasureValue(_buffer.GetRange(0, LengthOfMeasurent));
+                _buffer.RemoveRange(0, LengthOfMeasurent);
+                if (NewMeasurement != null)
+                {
+                    NewMeasurement(this, new NewMeasureValueEventArgs(measureValue));
+                }
+            }
+
+        }
+
+        public event NewMeasureValueEventHandler NewMeasurement;
 
         private readonly SerialPort _port;
     }
