@@ -9,5 +9,6 @@ namespace Interface
     public interface IMeasureValue
     {
         byte[] Buffer { get; }
+        bool IsNegative { get;}
     }
 }

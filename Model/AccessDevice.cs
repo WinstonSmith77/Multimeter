@@ -41,7 +41,7 @@ namespace Model
             return port;
         }
 
-        private const int LengthOfMeasurent = 14;
+        public const int LengthOfMeasurent = 14;
         private readonly List<byte> _buffer = new List<byte>();
 
         void _port_DataReceived(object sender, SerialDataReceivedEventArgs e)
