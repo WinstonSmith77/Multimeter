@@ -10,5 +10,7 @@ namespace Interface
     {
         byte[] Buffer { get; }
         bool IsNegative { get;}
+        bool IsAC { get; }
+        bool IsDC { get; }
     }
 }

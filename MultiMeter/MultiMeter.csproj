@@ -97,6 +97,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="RS232_Protocol_VOLTCRAFT_VC840_DMM.pdf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -109,6 +110,10 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{f6eba294-a69b-468e-af33-2374fe54d68c}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj">
+      <Project>{2db4f9a9-a6c5-4f26-abad-1402a40ce9ec}</Project>
+      <Name>ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

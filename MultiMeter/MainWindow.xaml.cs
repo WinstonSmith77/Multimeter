@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Model;
 using NLog;
+using ViewModel;
 
 namespace MultiMeter
 {
@@ -25,8 +26,12 @@ namespace MultiMeter
         public MainWindow()
         {
             InitializeComponent();
-            var dummy = new AccessDevice();
-            dummy.NewMeasurement += dummy_NewMeasurement;
+
+            var device = new AccessDevice();
+            device.NewMeasurement += dummy_NewMeasurement;
+
+            var vm = new Main(device);
+            DataContext = vm;
         }
 
         void dummy_NewMeasurement(object sender, NewMeasureValueEventArgs e)
