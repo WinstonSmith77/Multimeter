@@ -29,7 +29,6 @@ namespace Model
         }
 
 
-        public byte[] Buffer { get; private set; }
         private readonly Dictionary<byte, byte> _bufferDecoded;
 
         public bool IsNegative
@@ -64,8 +63,10 @@ namespace Model
                 throw new ArgumentException("Buffer lengtth mismatch");
             }
 
-            Buffer = array;
-            _bufferDecoded = DecodeBuffer(buffer);
+            _bufferDecoded = DecodeBuffer(array);
+            _toString = "new byte[] {" +
+                        array.Aggregate("", (current, value) => current + "0x" + value.ToString("x2") + ",",
+                            result => result.TrimEnd(',')) + "}";
         }
 
         private Dictionary<byte, byte> DecodeBuffer(IEnumerable<byte> buffer)
@@ -83,9 +84,10 @@ namespace Model
             return result;
         }
 
+        private readonly string _toString;
         public override string ToString()
         {
-            return "new byte[] {" + Buffer.Aggregate("", (current, value) => current + "0x" + value.ToString("x2") + ",", result => result.TrimEnd(',')) + "}";
+            return _toString;
         }
     }
 }

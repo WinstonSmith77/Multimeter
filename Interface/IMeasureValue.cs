@@ -8,7 +8,6 @@ namespace Interface
 {
     public interface IMeasureValue
     {
-        byte[] Buffer { get; }
         bool IsNegative { get;}
         bool IsAC { get; }
         bool IsDC { get; }
