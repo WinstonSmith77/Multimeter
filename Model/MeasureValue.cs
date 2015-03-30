@@ -11,31 +11,13 @@ namespace Model
 {
     public class MeasureValue : IMeasureValue
     {
-        [Flags]
-        private enum LowerBits : byte
-        {
-            One = 1,
-            Two = 2,
-            Three = 4,
-            Four = 8,
-            All = One | Two | Three | Four,
-            Five = 16,
-        }
-
-        private enum Bytes
-        {
-            One = 1,
-            Two = 2,
-        }
-
-
         private readonly Dictionary<byte, byte> _bufferDecoded;
 
         public bool IsNegative
         {
             get
             {
-                return ((LowerBits) _bufferDecoded[(int)Bytes.Two]).HasFlag(LowerBits.Four);
+                return ((LowerBits) _bufferDecoded[(int)BytesInTelegram.Two]).HasFlag(LowerBits.Four);
             }
         }
 
@@ -43,7 +25,7 @@ namespace Model
         {
             get
             {
-                return ((LowerBits)_bufferDecoded[(int)Bytes.One]).HasFlag(LowerBits.Four);
+                return ((LowerBits)_bufferDecoded[(int)BytesInTelegram.One]).HasFlag(LowerBits.Four);
             }
         }
 
@@ -51,7 +33,7 @@ namespace Model
         {
             get
             {
-                return ((LowerBits)_bufferDecoded[(int)Bytes.One]).HasFlag(LowerBits.Three);
+                return ((LowerBits)_bufferDecoded[(int)BytesInTelegram.One]).HasFlag(LowerBits.Three);
             }
         }
 
