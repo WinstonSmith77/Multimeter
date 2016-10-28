@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		RS232_Protocol_VOLTCRAFT_VC840_DMM.pdf = RS232_Protocol_VOLTCRAFT_VC840_DMM.pdf
 	EndProjectSection
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Deocder", "Deocder\Deocder.fsproj", "{2D322817-DE97-4458-8FF6-846FEE76A21B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{2DB4F9A9-A6C5-4F26-ABAD-1402A40CE9EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DB4F9A9-A6C5-4F26-ABAD-1402A40CE9EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DB4F9A9-A6C5-4F26-ABAD-1402A40CE9EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D322817-DE97-4458-8FF6-846FEE76A21B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D322817-DE97-4458-8FF6-846FEE76A21B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D322817-DE97-4458-8FF6-846FEE76A21B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D322817-DE97-4458-8FF6-846FEE76A21B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

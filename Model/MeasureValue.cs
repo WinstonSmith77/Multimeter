@@ -9,9 +9,11 @@ using Interface;
 
 namespace Model
 {
+    using System.Runtime.DesignerServices;
+
     public class MeasureValue : IMeasureValue
     {
-        private readonly Dictionary<byte, byte> _bufferDecoded;
+        private readonly byte[] _bufferDecoded;
 
         public bool IsNegative
         {
@@ -39,31 +41,11 @@ namespace Model
 
         public MeasureValue(IEnumerable<byte> buffer)
         {
-            var array = buffer.ToArray();
-            if (array.Count() != AccessDevice.LengthOfMeasurent)
-            {
-                throw new ArgumentException("Buffer lengtth mismatch");
-            }
 
-            _bufferDecoded = DecodeBuffer(array);
+            _bufferDecoded = VC_840Decoder.Decode(buffer);
             _toString = "new byte[] {" +
-                        array.Aggregate("", (current, value) => current + "0x" + value.ToString("x2") + ",",
+                        buffer.ToArray().Aggregate("", (current, value) => current + "0x" + value.ToString("x2") + ",",
                             result => result.TrimEnd(',')) + "}";
-        }
-
-        private Dictionary<byte, byte> DecodeBuffer(IEnumerable<byte> buffer)
-        {
-            var result = new Dictionary<byte, byte>();
-
-            foreach (var bufferValue in buffer)
-            {
-                var index = (byte)(bufferValue / (byte)LowerBits.Five);
-                var value = (byte)(bufferValue & (byte)LowerBits.All);
-
-                result.Add(index, value);
-            }
-
-            return result;
         }
 
         private readonly string _toString;
