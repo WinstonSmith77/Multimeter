@@ -13,13 +13,13 @@ namespace Model
 
     public class MeasureValue : IMeasureValue
     {
-        private readonly byte[] _bufferDecoded;
+        private readonly VC_840Decoder.DecodedBuffer _bufferDecoded;
 
         public bool IsNegative
         {
             get
             {
-                return ((LowerBits) _bufferDecoded[(int)BytesInTelegram.Two]).HasFlag(LowerBits.Four);
+                return VC_840Decoder.IsNegative(this._bufferDecoded);
             }
         }
 
@@ -27,7 +27,7 @@ namespace Model
         {
             get
             {
-                return ((LowerBits)_bufferDecoded[(int)BytesInTelegram.One]).HasFlag(LowerBits.Four);
+                return VC_840Decoder.IsAC(this._bufferDecoded);
             }
         }
 
@@ -35,7 +35,7 @@ namespace Model
         {
             get
             {
-                return ((LowerBits)_bufferDecoded[(int)BytesInTelegram.One]).HasFlag(LowerBits.Three);
+                return VC_840Decoder.IsDC(this._bufferDecoded);
             }
         }
 
