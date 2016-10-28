@@ -50,5 +50,8 @@
         isBitSetInArray buffer.Buffer 0 LowerBits.Three
 
     let BufferToString buffer = 
-        let innerResult = Seq.fold (fun acc (input:byte) -> acc +  "0x" + input.ToString("x2") + ",") ""  buffer.Buffer
-        "new byte[] {" + innerResult + "}";
+        let innerResult =
+            buffer.Buffer
+            |> Seq.mapi (fun index data -> byte(index) * byte(16) + data)
+            |> Seq.fold (fun acc (input:byte) -> acc +  "0x" + input.ToString("x2") + ", ") ""  
+        "new byte[] {" + innerResult.TrimEnd(',') + "}";

@@ -41,8 +41,11 @@ namespace Model
 
         public MeasureValue(IEnumerable<byte> buffer)
         {
+
             _bufferDecoded = VC_840Decoder.Decode(buffer);
-            _toString = VC_840Decoder.BufferToString(this._bufferDecoded);
+            _toString = "new byte[] {" +
+                        buffer.ToArray().Aggregate("", (current, value) => current + "0x" + value.ToString("x2") + ",",
+                            result => result.TrimEnd(',')) + "}";
         }
 
         private readonly string _toString;
