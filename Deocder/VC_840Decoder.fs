@@ -22,7 +22,7 @@
     let decodeInner raw =
        { Buffer =
             raw 
-            |> Seq.map (fun (rawByte:byte) -> (getIndex rawByte , getData rawByte) )
+            |> Seq.map (fun rawByte -> (getIndex rawByte , getData rawByte) )
             |> Seq.sortBy (fun (index, _) -> index)
             |> Seq.map (fun (_, data) -> data)
             |> Seq.toArray
