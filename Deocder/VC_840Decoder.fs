@@ -41,10 +41,14 @@
         isBitSet input.[indexByte]  <| indexBit
 
     let IsNegative buffer =     
-        buffer.Buffer.[1] &&& byte(LowerBits.Four) <> byte(0)
+        isBitSetInArray buffer.Buffer 1 LowerBits.Four
 
     let IsAC buffer =     
-        buffer.Buffer.[0] &&& byte(LowerBits.Four) <> byte(0)
+        isBitSetInArray buffer.Buffer 0 LowerBits.Four
 
     let IsDC buffer =     
-        buffer.Buffer.[0] &&& byte(LowerBits.Three) <> byte(0)
+        isBitSetInArray buffer.Buffer 0 LowerBits.Three
+
+    let BufferToString buffer = 
+        let innerResult = Seq.fold (fun acc (input:byte) -> acc +  "0x" + input.ToString("x2") + ",") ""  buffer.Buffer
+        "new byte[] {" + innerResult + "}";
