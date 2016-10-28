@@ -1,0 +1,21 @@
+﻿<Properties StartupConfiguration="{D5B6047A-B6E7-4517-96D9-A37473A95F1F}|Unit Tests">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Tests/packages.config">
+    <Files>
+      <File FileName="Model/MeasureValue.cs" Line="12" Column="5" />
+      <File FileName="Tests/MeasureValueTest.cs" Line="1" Column="1" />
+      <File FileName="Model/packages.config" Line="5" Column="1" />
+      <File FileName="Interface/packages.config" Line="3" Column="2" />
+      <File FileName="ViewModel/packages.config" Line="3" Column="3" />
+      <File FileName="Tests/packages.config" Line="5" Column="35" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Tests PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>MultiMeter/MultiMeter.csproj</String>
+  </DisabledProjects>
+</Properties>

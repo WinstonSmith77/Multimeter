@@ -9,8 +9,7 @@ using Interface;
 
 namespace Model
 {
-    using System.Runtime.DesignerServices;
-
+    
     public class MeasureValue : IMeasureValue
     {
         private readonly VC_840Decoder.DecodedBuffer _bufferDecoded;
