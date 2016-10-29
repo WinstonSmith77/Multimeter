@@ -1,15 +1,17 @@
 ﻿module VC_840Decoder
     open AtomicTypes
+    open AllDisplayedData
 
     let numberOfBytesInTelegram = 14
 
-    let getIndex rawByte = rawByte / byte(LowerBits.Five)
-    let getData rawByte = rawByte &&& byte(LowerBits.All)
+   
 
     let decodeInner raw =
+       let getIndex rawByte = rawByte / byte(LowerBits.Five)
+       let getData rawByte = rawByte &&& byte(LowerBits.All)
        { Buffer =
             raw 
-            |> Seq.map (fun rawByte -> (getIndex rawByte , getData rawByte) )
+            |> Seq.map (fun rawByte -> (getIndex rawByte, getData rawByte) )
             |> Seq.sortBy (fun (index, _) -> index)
             |> Seq.map (fun (_, data) -> data)
             |> Seq.toArray
@@ -30,19 +32,20 @@
     let IsNegative buffer =     
         isBitSetInArray buffer.Buffer 1 LowerBits.Four
 
-    let IsAC buffer =     
-        isBitSetInArray buffer.Buffer 0 LowerBits.Four
-
-    let IsDC buffer =     
-        isBitSetInArray buffer.Buffer 0 LowerBits.Three
+   
 
     let KindOfCurrent buffer =
-        if IsAC buffer then
-            Some(ACOrDC.AC)
-        elif IsDC buffer then
-            Some(ACOrDC.DC)
-        else        
-            None
+        let isAC buffer =     
+            isBitSetInArray buffer.Buffer 0 LowerBits.Four
+
+        let isDC buffer =     
+            isBitSetInArray buffer.Buffer 0 LowerBits.Three
+
+        match (isAC buffer, isDC buffer) with 
+        | (true, _) ->  Some(ACOrDC.AC)
+        | (_, true) ->  Some(ACOrDC.DC)
+        | (_, _) -> None
+   
 
     let BufferToString buffer = 
         let innerResult =
@@ -50,3 +53,7 @@
             |> Seq.mapi (fun index data -> byte(index) * byte(16) + data)
             |> Seq.fold (fun acc (input:byte) -> acc +  "0x" + input.ToString("x2") + ", ") ""  
         "new byte[] {" + innerResult.TrimEnd(',') + "}";
+
+    let GetAllData raw =
+        let decoded = Decode raw
+        {KindOfCurrent = KindOfCurrent decoded}

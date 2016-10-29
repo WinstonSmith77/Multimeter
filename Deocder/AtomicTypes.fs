@@ -11,10 +11,10 @@
   
     type DecodedBuffer =   
         {
-            Buffer:byte array
+            Buffer:byte array 
         }   
 
     type ACOrDC =
-        | AC
+        | AC 
         | DC
         
