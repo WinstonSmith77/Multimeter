@@ -66,10 +66,7 @@ namespace Model
                 }
                 var measureValue = new MeasureValue(_buffer.GetRange(0, LengthOfMeasurent));
                 _buffer.RemoveRange(0, LengthOfMeasurent);
-                if (NewMeasurement != null)
-                {
-                    NewMeasurement(this, new NewMeasureValueEventArgs(measureValue));
-                }
+                NewMeasurement?.Invoke(this, new NewMeasureValueEventArgs(measureValue));
             }
 
         }

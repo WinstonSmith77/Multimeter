@@ -1,5 +1,5 @@
 ﻿module VC_840Decoder
-	open AtomicTypes
+    open AtomicTypes
 
     let numberOfBytesInTelegram = 14
 
@@ -35,6 +35,14 @@
 
     let IsDC buffer =     
         isBitSetInArray buffer.Buffer 0 LowerBits.Three
+
+    let KindOfCurrent buffer =
+        if IsAC buffer then
+            Some(ACOrDC.AC)
+        elif IsDC buffer then
+            Some(ACOrDC.DC)
+        else        
+            None
 
     let BufferToString buffer = 
         let innerResult =

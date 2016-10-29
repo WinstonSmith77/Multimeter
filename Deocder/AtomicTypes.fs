@@ -13,3 +13,8 @@
         {
             Buffer:byte array
         }   
+
+    type ACOrDC =
+        | AC
+        | DC
+        
