@@ -46,7 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="AtomicTypes.fs" />
+    <Compile Include="TelegramTypes.fs" />
+    <Compile Include="DecoderTypes.fs" />
     <Compile Include="AllDisplayedData.fs" />
     <Compile Include="VC_840Decoder.fs" />
   </ItemGroup>

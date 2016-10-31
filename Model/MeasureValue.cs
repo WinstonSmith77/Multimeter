@@ -12,13 +12,13 @@ namespace Model
     
     public class MeasureValue : IMeasureValue
     {
-        private readonly AtomicTypes.DecodedBuffer _bufferDecoded;
+        private readonly DecoderTypes.DecodedBuffer _bufferDecoded;
 
         public bool IsNegative => VC_840Decoder.IsNegative(this._bufferDecoded);
 
-        public bool IsAC => VC_840Decoder.KindOfCurrent(this._bufferDecoded).Value.Equals(AtomicTypes.ACOrDC.AC);
+        public bool IsAC => VC_840Decoder.KindOfCurrent(this._bufferDecoded).Value.Equals(DecoderTypes.ACOrDC.AC);
 
-        public bool IsDC => VC_840Decoder.KindOfCurrent(this._bufferDecoded).Value.Equals(AtomicTypes.ACOrDC.DC);
+        public bool IsDC => VC_840Decoder.KindOfCurrent(this._bufferDecoded).Value.Equals(DecoderTypes.ACOrDC.DC);
 
         public MeasureValue(IEnumerable<byte> buffer)
         {

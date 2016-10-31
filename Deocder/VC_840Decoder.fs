@@ -1,10 +1,9 @@
 ﻿module VC_840Decoder
-    open AtomicTypes
+    open DecoderTypes
+    open TelegramTypes  
     open AllDisplayedData
 
     let numberOfBytesInTelegram = 14
-
-   
 
     let decodeInner raw =
        let getIndex rawByte = rawByte / byte(LowerBits.Five)
@@ -24,24 +23,23 @@
              decodeInner raw
 
     let isBitSet input index =
-         input &&& byte(index) <> byte(0)
+         input &&& (byte index) <> byte(0)
 
     let isBitSetInArray (input:byte array) indexByte indexBit =
-        isBitSet input.[indexByte]  <| indexBit
+        isBitSet input.[int indexByte]  <| indexBit
 
     let IsNegative buffer =     
-        isBitSetInArray buffer.Buffer 1 LowerBits.Four
-
-   
+        isBitSetInArray buffer.Buffer BytesInTelegram.Second LowerBits.Four
 
     let KindOfCurrent buffer =
-        let isAC buffer =     
-            isBitSetInArray buffer.Buffer 0 LowerBits.Four
 
-        let isDC buffer =     
-            isBitSetInArray buffer.Buffer 0 LowerBits.Three
+        let isAC  =     
+            isBitSetInArray buffer.Buffer BytesInTelegram.First LowerBits.Four
 
-        match (isAC buffer, isDC buffer) with 
+        let isDC  =     
+            isBitSetInArray buffer.Buffer BytesInTelegram.First LowerBits.Three
+
+        match (isAC, isDC) with 
         | (true, _) ->  Some(ACOrDC.AC)
         | (_, true) ->  Some(ACOrDC.DC)
         | (_, _) -> None

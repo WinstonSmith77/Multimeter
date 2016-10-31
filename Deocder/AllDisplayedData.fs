@@ -1,5 +1,5 @@
 ﻿module AllDisplayedData
-    open AtomicTypes
+    open DecoderTypes
 
     type AllDisplayedData = {
         KindOfCurrent : ACOrDC option
