@@ -4,7 +4,7 @@
         | Center
         | BottomCenter
         | TopLeft
-        | Topright
+        | TopRight
         | BottomLeft
         | BottomRight  
 
@@ -12,6 +12,6 @@
         Segments : SevenSegment Set
         }
 
-    let One = { Segments = [SevenSegment.BottomRight; SevenSegment.Topright] |> Set.ofList }
+    let One = { Segments = [SevenSegment.BottomRight; SevenSegment.TopRight] |> Set.ofList }
 
    
