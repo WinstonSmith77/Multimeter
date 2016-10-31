@@ -50,6 +50,7 @@
     <Compile Include="DecoderTypes.fs" />
     <Compile Include="AllDisplayedData.fs" />
     <Compile Include="VC_840Decoder.fs" />
+    <Compile Include="Digit.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
