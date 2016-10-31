@@ -5,7 +5,7 @@
 
     let numberOfBytesInTelegram = 14
 
-    let decodeInner raw =
+    let Decode raw =
        let getIndex rawByte = rawByte / byte(LowerBits.Five)
        let getData rawByte = rawByte &&& byte(LowerBits.All)
        { Buffer =
@@ -16,17 +16,11 @@
             |> Seq.toArray
         }
 
-    let Decode raw =
-        if Seq.length raw <> numberOfBytesInTelegram then
-            failwith "Wrong length"
-        else
-             decodeInner raw
-
     let isBitSet input index =
          input &&& (byte index) <> byte(0)
 
     let isBitSetInArray (input:byte array) position =
-        isBitSet input.[int position.Byte]  <| position.Bit
+        isBitSet input.[int position.Byte]  position.Bit
 
     let IsNegative buffer =     
         isBitSetInArray buffer.Buffer postionNegativeSign
