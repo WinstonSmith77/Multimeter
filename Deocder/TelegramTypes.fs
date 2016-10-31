@@ -13,4 +13,13 @@
      type BytesInTelegram =
            |    First = 0
            |    Second = 1
+
+     type BinaryPosition = {
+        Bit : LowerBits
+        Byte : BytesInTelegram
+     }
+
+     let positionAC = {Byte = BytesInTelegram.First; Bit = LowerBits.Four}
+     let positionDC = {Byte = BytesInTelegram.First; Bit = LowerBits.Three}
+     let postionNegativeSign = {Byte = BytesInTelegram.Second; Bit = LowerBits.Four}
            

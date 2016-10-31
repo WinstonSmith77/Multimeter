@@ -25,19 +25,19 @@
     let isBitSet input index =
          input &&& (byte index) <> byte(0)
 
-    let isBitSetInArray (input:byte array) indexByte indexBit =
-        isBitSet input.[int indexByte]  <| indexBit
+    let isBitSetInArray (input:byte array) position =
+        isBitSet input.[int position.Byte]  <| position.Bit
 
     let IsNegative buffer =     
-        isBitSetInArray buffer.Buffer BytesInTelegram.Second LowerBits.Four
+        isBitSetInArray buffer.Buffer postionNegativeSign
 
     let KindOfCurrent buffer =
 
         let isAC  =     
-            isBitSetInArray buffer.Buffer BytesInTelegram.First LowerBits.Four
+            isBitSetInArray buffer.Buffer positionAC
 
         let isDC  =     
-            isBitSetInArray buffer.Buffer BytesInTelegram.First LowerBits.Three
+            isBitSetInArray buffer.Buffer positionDC
 
         match (isAC, isDC) with 
         | (true, _) ->  Some(ACOrDC.AC)

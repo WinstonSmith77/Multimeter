@@ -1,5 +1,4 @@
-﻿module Digit
-    type SevenSegment=
+﻿    type SevenSegment=
         | Top
         | Center
         | Bottom
@@ -16,9 +15,9 @@
     let Seven = { Segments = Set.add SevenSegment.Top One.Segments }
     let Three = { Segments = Set.add SevenSegment.Bottom Seven.Segments |> Set.add SevenSegment.Center}
 
-    let Two = { Segments = [SevenSegment.Top; SevenSegment.Bottom; SevenSegment.BottomLeft; SevenSegment.TopRight] |> Set.ofList }
-    let Five = { Segments = [SevenSegment.Top; SevenSegment.Bottom; SevenSegment.BottomRight; SevenSegment.TopLeft] |> Set.ofList }
-
+    let Two = { Segments = [SevenSegment.Top; SevenSegment.Bottom; SevenSegment.BottomLeft; SevenSegment.TopRight; SevenSegment.Center] |> Set.ofList }
+    let Five = { Segments = [SevenSegment.Top; SevenSegment.Bottom; SevenSegment.BottomRight; SevenSegment.TopLeft; SevenSegment.Center] |> Set.ofList }
+   
     let Eight = { Segments = Set.union Two.Segments Five.Segments }
     let Six = { Segments = Set.remove SevenSegment.TopRight Eight.Segments }
     let Nine = { Segments = Set.remove SevenSegment.BottomLeft Eight.Segments }
