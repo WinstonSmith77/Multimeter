@@ -1,6 +1,7 @@
 ﻿module VC_840Decoder
     open DecoderTypes
     open TelegramTypes  
+    open Digit
 
     let numberOfBytesInTelegram = 14
 
@@ -18,18 +19,18 @@
     let isBitSet input index =
          input &&& (byte index) <> byte(0)
 
-    let isBitSetInArray (input:byte array) position =
-        isBitSet input.[int position.Byte]  position.Bit
+    let isBitSetInArray (input:DecodedBuffer) position =
+        isBitSet input.Buffer.[int position.Byte]  position.Bit
 
     let IsNegative buffer =     
-        isBitSetInArray buffer.Buffer postionNegativeSign
+        isBitSetInArray buffer postionNegativeSign
 
     let KindOfCurrent buffer =
         let isAC  =     
-            isBitSetInArray buffer.Buffer positionAC
+            isBitSetInArray buffer positionAC
 
         let isDC  =     
-            isBitSetInArray buffer.Buffer positionDC
+            isBitSetInArray buffer positionDC
 
         match (isAC, isDC) with 
         | (true, _) ->  Some(ACOrDC.AC)
@@ -45,7 +46,8 @@
         "new byte[] {" + innerResult.TrimEnd(',') + "}";
    
     let DecodeDigit buffer patternDigit digitToInt =        
-        let digits = Map.toList  digitToInt |> Seq.map (fun (key, _) -> key)
+        let segmentsSet = List.fold (fun acc (segment, position) -> if isBitSetInArray buffer position then Set.add segment acc else acc) Set.empty patternDigit
 
+        let result = List.tryFind (fun (digit, number) -> digit.Segments = segmentsSet) digitToInt
 
-        0.0
+        Option.map (fun (_, number) -> number) result

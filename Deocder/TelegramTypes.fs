@@ -34,5 +34,5 @@
                      (SevenSegment.Bottom, {Byte = BytesInTelegram.Nine; Bit = Bits.Four})
                      (SevenSegment.BottomLeft, {Byte = BytesInTelegram.Eight; Bit = Bits.Three})
                      (SevenSegment.TopLeft, {Byte = BytesInTelegram.Eight; Bit = Bits.Two})
-                     (SevenSegment.Center, {Byte = BytesInTelegram.Nine; Bit = Bits.Two})   ] |> Map.ofList
+                     (SevenSegment.Center, {Byte = BytesInTelegram.Nine; Bit = Bits.Two})   ] 
 

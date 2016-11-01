@@ -12,5 +12,5 @@
         let decoded = Decode raw
         {
             KindOfCurrent = KindOfCurrent decoded;
-            Value = Some(DecodeDigit decoded TelegramTypes.digitOne Digit.DigitToInt )
+            Value = DecodeDigit decoded TelegramTypes.digitOne Digit.DigitToInt 
         }
