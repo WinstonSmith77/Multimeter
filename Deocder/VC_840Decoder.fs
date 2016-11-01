@@ -44,3 +44,8 @@
             |> Seq.fold (fun acc (input:byte) -> acc +  "0x" + input.ToString("x2") + ", ") ""  
         "new byte[] {" + innerResult.TrimEnd(',') + "}";
    
+    let DecodeDigit buffer patternDigit digitToInt =        
+        let digits = Map.toList  digitToInt |> Seq.map (fun (key, _) -> key)
+
+
+        0.0

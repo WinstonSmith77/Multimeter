@@ -1,6 +1,7 @@
 ﻿module AllDisplayedData
     open DecoderTypes
     open VC_840Decoder
+    open Digit
 
     type AllDisplayedData = {
         KindOfCurrent : ACOrDC option
@@ -11,7 +12,5 @@
         let decoded = Decode raw
         {
             KindOfCurrent = KindOfCurrent decoded;
-            Value = match IsNegative decoded with   
-                    | true -> Some(-1.0)
-                    | false -> Some(1.0)
+            Value = Some(DecodeDigit decoded TelegramTypes.digitOne Digit.DigitToInt )
         }
