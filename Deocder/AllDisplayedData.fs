@@ -12,5 +12,7 @@
         let decoded = Decode raw
         {
             KindOfCurrent = KindOfCurrent decoded;
-            Value = DecodeDigit decoded TelegramTypes.digitOne Digit.DigitToInt 
+            Value = DecodeDigit decoded TelegramTypes.digitOne Digit.DigitToInt  
+                |> Option.map double
+                |> Option.map (fun value -> if VC_840Decoder.IsNegative decoded then -value else value)
         }
