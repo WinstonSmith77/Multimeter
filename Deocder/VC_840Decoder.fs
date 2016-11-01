@@ -50,4 +50,4 @@
 
         let result = List.tryFind (fun (digit, number) -> digit.Segments = segmentsSet) digitToInt
 
-        Option.map (fun (_, number) -> number) result
+        Option.bind (fun (_, number) -> Some(number)) result
