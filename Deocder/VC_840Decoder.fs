@@ -1,7 +1,6 @@
 ﻿module VC_840Decoder
     open DecoderTypes
     open TelegramTypes  
-    open AllDisplayedData
 
     let numberOfBytesInTelegram = 14
 
@@ -26,7 +25,6 @@
         isBitSetInArray buffer.Buffer postionNegativeSign
 
     let KindOfCurrent buffer =
-
         let isAC  =     
             isBitSetInArray buffer.Buffer positionAC
 
@@ -46,6 +44,4 @@
             |> Seq.fold (fun acc (input:byte) -> acc +  "0x" + input.ToString("x2") + ", ") ""  
         "new byte[] {" + innerResult.TrimEnd(',') + "}";
 
-    let GetAllData raw =
-        let decoded = Decode raw
-        {KindOfCurrent = KindOfCurrent decoded}
+   

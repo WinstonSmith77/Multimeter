@@ -10,6 +10,8 @@ using NUnit.Framework;
 
 namespace Tests
 {
+    using Microsoft.FSharp.Core;
+
     [TestFixture]
     public class MeasureValueTest
     {
@@ -19,22 +21,22 @@ namespace Tests
         [Test]
         public static void IsNegativ()
         {
-            IMeasureValue value = new MeasureValue(_bufferIsNegativAndIsDc);
-            value.IsNegative.Should().BeTrue();
+            var value = AllDisplayedData.GetAllData(_bufferIsNegativAndIsDc).Value.Value;
+            value.Should().BeLessThan(0);
         }
 
         [Test]
         public static void IsDC()
         {
-            IMeasureValue value = new MeasureValue(_bufferIsNegativAndIsDc);
-            value.IsDC.Should().BeTrue();
+            var value = AllDisplayedData.GetAllData(_bufferIsNegativAndIsDc);
+            value.KindOfCurrent.Should().Be(FSharpOption<DecoderTypes.ACOrDC>.Some(DecoderTypes.ACOrDC.DC));
         }
 
         [Test]
         public static void IsAC()
         {
-            IMeasureValue value = new MeasureValue(_bufferIsAC);
-            value.IsAC.Should().BeTrue();
+            var value = AllDisplayedData.GetAllData(_bufferIsAC);
+            value.KindOfCurrent.Should().Be(FSharpOption<DecoderTypes.ACOrDC>.Some(DecoderTypes.ACOrDC.AC));
         }
     }
 }

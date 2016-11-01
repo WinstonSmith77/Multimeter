@@ -53,9 +53,9 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="TelegramTypes.fs" />
     <Compile Include="DecoderTypes.fs" />
-    <Compile Include="AllDisplayedData.fs" />
     <Compile Include="VC_840Decoder.fs" />
-    <Compile Include="Digit.fs" />
+    <Compile Include="AllDisplayedData.fs" />
+    <Compile Include="Digits.fs" />
     <None Include="Script1.fsx" />
   </ItemGroup>
   <ItemGroup>
