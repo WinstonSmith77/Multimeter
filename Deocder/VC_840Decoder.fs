@@ -5,8 +5,8 @@
     let numberOfBytesInTelegram = 14
 
     let Decode raw =
-       let getIndex rawByte = rawByte / byte(LowerBits.Five)
-       let getData rawByte = rawByte &&& byte(LowerBits.All)
+       let getIndex rawByte = rawByte / byte(Bits.Five)
+       let getData rawByte = rawByte &&& byte(Bits.All)
        { Buffer =
             raw 
             |> Seq.map (fun rawByte -> (getIndex rawByte, getData rawByte) )
@@ -43,5 +43,4 @@
             |> Seq.mapi (fun index data -> byte(index) * byte(16) + data)
             |> Seq.fold (fun acc (input:byte) -> acc +  "0x" + input.ToString("x2") + ", ") ""  
         "new byte[] {" + innerResult.TrimEnd(',') + "}";
-
    

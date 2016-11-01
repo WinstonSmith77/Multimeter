@@ -51,11 +51,11 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Digits.fs" />
     <Compile Include="TelegramTypes.fs" />
     <Compile Include="DecoderTypes.fs" />
     <Compile Include="VC_840Decoder.fs" />
     <Compile Include="AllDisplayedData.fs" />
-    <Compile Include="Digits.fs" />
     <None Include="Script1.fsx" />
   </ItemGroup>
   <ItemGroup>
