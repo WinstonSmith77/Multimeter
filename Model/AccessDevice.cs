@@ -41,7 +41,7 @@ namespace Model
             return port;
         }
 
-        public const int LengthOfMeasurent = 14;
+       
         private readonly List<byte> _buffer = new List<byte>();
 
         void _port_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -60,12 +60,12 @@ namespace Model
         {
             for (; ; )
             {
-                if (_buffer.Count < LengthOfMeasurent)
+                if (_buffer.Count < VC_840Decoder.numberOfBytesInTelegram)
                 {
                     break;
                 }
-                var measureValue = new MeasureValue(_buffer.GetRange(0, LengthOfMeasurent));
-                _buffer.RemoveRange(0, LengthOfMeasurent);
+                var measureValue = new MeasureValue(_buffer.GetRange(0, VC_840Decoder.numberOfBytesInTelegram));
+                _buffer.RemoveRange(0, VC_840Decoder.numberOfBytesInTelegram);
                 NewMeasurement?.Invoke(this, new NewMeasureValueEventArgs(measureValue));
             }
 
