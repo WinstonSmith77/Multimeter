@@ -13,13 +13,13 @@ namespace Model
         {
             var ports = SerialPort.GetPortNames();
 
-            if (ports.Count() != 1)
+            if (ports.Length != 1)
             {
                 throw new ArgumentException("Wrong number of ports!");
             }
 
-            _port = InitComPort(ports.First());
-            _port.Open();
+            var port = InitComPort(ports.First());
+            port.Open();
         }
 
         private SerialPort InitComPort(string name)
@@ -46,10 +46,12 @@ namespace Model
 
         void _port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            var port = (SerialPort) sender;
+
             lock (_buffer)
             {
-                var currentRead = new byte[_port.BytesToRead];
-                _port.Read(currentRead, 0, currentRead.Count());
+                var currentRead = new byte[port.BytesToRead];
+                port.Read(currentRead, 0, currentRead.Count());
                 _buffer.AddRange(currentRead);
             }
 
@@ -73,6 +75,5 @@ namespace Model
 
         public event NewMeasureValueEventHandler NewMeasurement;
 
-        private readonly SerialPort _port;
     }
 }
