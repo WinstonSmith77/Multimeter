@@ -6,6 +6,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Interface;
+using Microsoft.FSharp.Core;
+using Misc;
 
 namespace Model
 {
@@ -16,20 +18,29 @@ namespace Model
 
         public bool IsNegative => VC_840Decoder.IsNegative(this._bufferDecoded);
 
-        public bool IsAC => VC_840Decoder.KindOfCurrent(this._bufferDecoded).Value.Equals(DecoderTypes.ACOrDC.AC);
+        public bool IsAC => VC_840Decoder.KindOfCurrent(this._bufferDecoded).GetOption(DecoderTypes.ACOrDC.DC).Equals(DecoderTypes.ACOrDC.AC);
 
-        public bool IsDC => VC_840Decoder.KindOfCurrent(this._bufferDecoded).Value.Equals(DecoderTypes.ACOrDC.DC);
+        public bool IsDC => VC_840Decoder.KindOfCurrent(this._bufferDecoded).GetOption(DecoderTypes.ACOrDC.AC).Equals(DecoderTypes.ACOrDC.DC);
+
+        public double Value
+        {
+            get
+            {
+                var number = AllDisplayedData.GetAllData(_bufferRaw).Value.GetOption(double.NaN);
+                return number;
+            }
+        }
 
         public MeasureValue(IEnumerable<byte> buffer)
         {
-
+            _bufferRaw = buffer;
             _bufferDecoded = VC_840Decoder.Decode(buffer);
-            _toString = "new byte[] {" +
-                        buffer.ToArray().Aggregate("", (current, value) => current + "0x" + value.ToString("x2") + ",",
-                            result => result.TrimEnd(',')) + "}";
+            _toString = VC_840Decoder.BufferToString(_bufferDecoded);
         }
 
         private readonly string _toString;
+        private readonly IEnumerable<byte> _bufferRaw;
+
         public override string ToString()
         {
             return _toString;

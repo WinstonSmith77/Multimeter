@@ -20,16 +20,35 @@ namespace ViewModel
                 IsNegative = value.IsNegative;
                 IsAC = value.IsAC;
                 IsDC = value.IsDC;
+                Value = value.Value;
             };
         }
 
         private bool _isNegative;
         private bool _isAc;
         private bool _isDc;
+        private double _value;
+
+        public double Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                if (value.Equals(_value)) return;
+                _value = value;
+                OnPropertyChanged();
+            }
+        }
 
         public bool IsNegative
         {
-            get { return _isNegative; }
+            get
+            {
+                return _isNegative;
+            }
             set
             {
                 if (value.Equals(_isNegative)) return;
@@ -40,7 +59,10 @@ namespace ViewModel
 
         public bool IsAC
         {
-            get { return _isAc; }
+            get
+            {
+                return _isAc;
+            }
             set
             {
                 if (value.Equals(_isAc)) return;
@@ -51,7 +73,10 @@ namespace ViewModel
 
         public bool IsDC
         {
-            get { return _isDc; }
+            get
+            {
+                return _isDc;
+            }
             set
             {
                 if (value.Equals(_isDc)) return;
@@ -66,7 +91,7 @@ namespace ViewModel
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

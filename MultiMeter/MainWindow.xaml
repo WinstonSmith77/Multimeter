@@ -7,6 +7,7 @@
             <CheckBox IsChecked="{Binding IsNegative}">IsNeg</CheckBox>
             <CheckBox IsChecked="{Binding IsAC}">IsAC</CheckBox>
             <CheckBox IsChecked="{Binding IsDC}">IsDC</CheckBox>
+            <TextBlock Text="{Binding Value}"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -11,5 +11,6 @@ namespace Interface
         bool IsNegative { get;}
         bool IsAC { get; }
         bool IsDC { get; }
+        double Value { get; }
     }
 }
