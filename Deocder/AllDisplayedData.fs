@@ -2,6 +2,7 @@
     open DecoderTypes
     open VC_840Decoder
     open Digit
+    open TelegramTypes
 
     type AllDisplayedData = {
         KindOfCurrent : ACOrDC option
@@ -9,10 +10,12 @@
     }
 
      let GetAllData raw =
+        let digits = [digitOne; digitTwo; digitThree; digitFour]
         let decoded = Decode raw
-        {
+        let result = {
             KindOfCurrent = KindOfCurrent decoded;
-            Value = DecodeDigit decoded TelegramTypes.digitOne Digit.DigitToInt  
-                |> Option.map double
+            Value = DecodeAllDigits decoded digits Digit.DigitToInt  
                 |> Option.map (fun value -> if VC_840Decoder.IsNegative decoded then -value else value)
         }
+
+        result

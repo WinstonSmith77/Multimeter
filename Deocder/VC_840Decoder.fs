@@ -46,8 +46,25 @@
         "new byte[] {" + innerResult.TrimEnd(',') + "}";
    
     let DecodeDigit buffer patternDigit digitToInt =        
-        let segmentsSet = List.fold (fun acc (segment, position) -> if isBitSetInArray buffer position then Set.add segment acc else acc) Set.empty patternDigit
+        let isBitSet position =  isBitSetInArray buffer position
+        let segmentsSet = List.fold (fun acc (segment, position) -> if isBitSet position then Set.add segment acc else acc) Set.empty patternDigit
 
         let result = List.tryFind (fun (digit, number) -> digit.Segments = segmentsSet) digitToInt
 
         Option.bind (fun (_, number) -> Some(number)) result
+
+    let DecodeAllDigits buffer patternsDigit digitToInit =    
+        let result = Some(0.0)
+        let timesTenAndAdd  b (a:double) = a * 10.0 + double(b)
+
+        let accumlateDigits acc digit = 
+              let number = DecodeDigit buffer digit digitToInit
+              let result = Option.bind (fun number -> Option.map (fun acc -> timesTenAndAdd number acc) acc) number
+
+              result
+
+        let result = List.fold (fun acc digit -> accumlateDigits acc digit) result patternsDigit
+        
+        result
+
+        
