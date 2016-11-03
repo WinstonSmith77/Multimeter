@@ -19,3 +19,19 @@
         }
 
         result
+
+     let GetAllDataFromBuffer oldBuffer newBuffer =
+         let completeBuffer = List.concat [List.ofSeq oldBuffer; List.ofSeq newBuffer]
+        
+         let GetAllDataFromBufferInner dataAndBuffer =
+            let (dataList, buffer) = dataAndBuffer
+            let isNotStartByte value = value / byte(Bits.Five) <> byte(1)
+            let parseFrom = List.skipWhile isNotStartByte  buffer |> List.take numberOfBytesInTelegram
+            
+            if List.length parseFrom = numberOfBytesInTelegram then
+             ((GetAllData parseFrom) :: dataList,  List.skipWhile isNotStartByte  buffer |> List.skip numberOfBytesInTelegram)
+            else
+             dataAndBuffer
+            
+
+         GetAllDataFromBufferInner ([], completeBuffer)  
