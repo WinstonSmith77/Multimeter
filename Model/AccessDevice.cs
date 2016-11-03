@@ -4,6 +4,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Misc;
 
 namespace Model
 {
@@ -45,11 +46,8 @@ namespace Model
         {
             var port = (SerialPort)sender;
 
-
             var currentRead = new byte[port.BytesToRead];
-            port.Read(currentRead, 0, currentRead.Count());
-
-
+            port.Read(currentRead, 0, currentRead.Length);
 
             FindNewMeasureValues(currentRead);
         }
@@ -59,16 +57,7 @@ namespace Model
             var value = AllDisplayedData.GetAllDataFromBuffer(this._oldBuffer, buffer);
             this._oldBuffer = value.Item2;
 
-            var bla = value.Item1.ToList();
-
-            if (!bla.Any())
-            {
-                return;
-            }
-
-
-            var measureValue = new MeasureValue(bla.First());
-            NewMeasurement?.Invoke(this, new NewMeasureValueEventArgs(measureValue));
+            value.Item1.FirstAsList().ForEach(meas => NewMeasurement?.Invoke(this, new NewMeasureValueEventArgs(new MeasureValue(meas))));
         }
 
         private byte[] _oldBuffer = { };
