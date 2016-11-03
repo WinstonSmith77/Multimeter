@@ -41,37 +41,29 @@ namespace Model
             return port;
         }
 
-       
-        private readonly List<byte> _buffer = new List<byte>();
-
         void _port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            var port = (SerialPort) sender;
+            var port = (SerialPort)sender;
 
-            lock (_buffer)
-            {
-                var currentRead = new byte[port.BytesToRead];
-                port.Read(currentRead, 0, currentRead.Count());
-                _buffer.AddRange(currentRead);
-            }
 
-            FindNewMeasureValues();
+            var currentRead = new byte[port.BytesToRead];
+            port.Read(currentRead, 0, currentRead.Count());
+
+
+
+            FindNewMeasureValues(currentRead);
         }
 
-        private void FindNewMeasureValues()
+        private void FindNewMeasureValues(byte[] buffer)
         {
-            for (; ; )
-            {
-                if (_buffer.Count < VC_840Decoder.numberOfBytesInTelegram)
-                {
-                    break;
-                }
-                var measureValue = new MeasureValue(_buffer.GetRange(0, VC_840Decoder.numberOfBytesInTelegram));
-                _buffer.RemoveRange(0, VC_840Decoder.numberOfBytesInTelegram);
-                NewMeasurement?.Invoke(this, new NewMeasureValueEventArgs(measureValue));
-            }
+            var value = AllDisplayedData.GetAllDataFromBuffer(this._oldBuffer, buffer);
+            this._oldBuffer = value.Item2;
 
+            var measureValue = new MeasureValue(value.Item1.ToList().First());
+            NewMeasurement?.Invoke(this, new NewMeasureValueEventArgs(measureValue));
         }
+
+        private byte[] _oldBuffer = { };
 
         public event NewMeasureValueEventHandler NewMeasurement;
 

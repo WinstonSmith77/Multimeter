@@ -29,9 +29,9 @@
             let parseFrom = List.skipWhile isNotStartByte  buffer |> List.take numberOfBytesInTelegram
             
             if List.length parseFrom = numberOfBytesInTelegram then
-             ((GetAllData parseFrom) :: dataList,  List.skipWhile isNotStartByte  buffer |> List.skip numberOfBytesInTelegram)
+             ((GetAllData parseFrom) :: dataList,  List.skipWhile isNotStartByte  buffer |> List.skip numberOfBytesInTelegram )
             else
              dataAndBuffer
             
 
-         GetAllDataFromBufferInner ([], completeBuffer)  
+         (fst(result), Array.ofSeq (snd(result)))
