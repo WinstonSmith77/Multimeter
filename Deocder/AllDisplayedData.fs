@@ -20,18 +20,30 @@
 
         result
 
+     let isNotStartByte value =
+        value / byte(Bits.Five) <> byte(1)   
+
+     let rec findValidSequnce buffer =  
+        if List.isEmpty buffer then
+           buffer 
+        elif isNotStartByte (List.head buffer) then
+           findValidSequnce  (List.tail buffer)
+        else
+           List.take (min (List.length buffer) numberOfBytesInTelegram) buffer 
+
      let GetAllDataFromBuffer oldBuffer newBuffer =
          let completeBuffer = List.concat [List.ofSeq oldBuffer; List.ofSeq newBuffer]
         
-         let GetAllDataFromBufferInner dataAndBuffer =
+         let rec GetAllDataFromBufferInner dataAndBuffer =
             let (dataList, buffer) = dataAndBuffer
-            let isNotStartByte value = value / byte(Bits.Five) <> byte(1)
-            let parseFrom = List.skipWhile isNotStartByte  buffer |> List.take numberOfBytesInTelegram
+           
+            let parseFrom = findValidSequnce buffer
             
             if List.length parseFrom = numberOfBytesInTelegram then
-             ((GetAllData parseFrom) :: dataList,  List.skipWhile isNotStartByte  buffer |> List.skip numberOfBytesInTelegram )
+                GetAllDataFromBufferInner ((GetAllData parseFrom) :: dataList,  List.skipWhile isNotStartByte  buffer |> List.skip numberOfBytesInTelegram )
             else
-             dataAndBuffer
+                dataAndBuffer
             
 
+         let result = GetAllDataFromBufferInner ([], completeBuffer)  
          (fst(result), Array.ofSeq (snd(result)))

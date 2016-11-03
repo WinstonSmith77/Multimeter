@@ -59,7 +59,15 @@ namespace Model
             var value = AllDisplayedData.GetAllDataFromBuffer(this._oldBuffer, buffer);
             this._oldBuffer = value.Item2;
 
-            var measureValue = new MeasureValue(value.Item1.ToList().First());
+            var bla = value.Item1.ToList();
+
+            if (!bla.Any())
+            {
+                return;
+            }
+
+
+            var measureValue = new MeasureValue(bla.First());
             NewMeasurement?.Invoke(this, new NewMeasureValueEventArgs(measureValue));
         }
 
