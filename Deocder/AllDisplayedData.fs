@@ -4,10 +4,10 @@
     open Digit
     open TelegramTypes
 
-    type AllDisplayedData = {
+     type AllDisplayedData = {
         KindOfCurrent : ACOrDC option
         Value : double option
-    }
+     }
 
      let GetAllData raw =
         let digits = [digitFour; digitThree; digitTwo; digitOne]
@@ -21,7 +21,7 @@
         result
 
      let isNotStartByte value =
-      value / byte(Bits.Five) <> byte(1)   
+         value / byte(Bits.Five) <> byte(1)   
 
      let rec findValidSequnce buffer =  
         if List.isEmpty buffer then
