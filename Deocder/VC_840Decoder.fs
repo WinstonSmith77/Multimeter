@@ -22,8 +22,10 @@
     let isBitSetInArray (input:DecodedBuffer) position =
         isBitSet input.Buffer.[int position.Byte]  position.Bit
 
-    let IsNegative buffer =     
-        isBitSetInArray buffer postionNegativeSign
+    let IsNegativeScaling buffer =     
+       match isBitSetInArray buffer postionNegativeSign with
+       | true -> -1
+       | false -> 1
 
     let KindOfCurrent buffer =
         let isAC  =     
@@ -54,8 +56,8 @@
         Option.bind (fun (_, number) -> Some(number)) result
 
     let DecodeAllDigits buffer patternsDigit digitToInit =    
-        let result = Some(0.0)
-        let timesTenAndAdd  b (a:double) = a * 10.0 + double(b)
+        let result = Some(0)
+        let timesTenAndAdd  b a = a * 10 + b
 
         let accumlateDigits acc digit = 
               let number = DecodeDigit buffer digit digitToInit

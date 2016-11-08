@@ -15,7 +15,8 @@
         let result = {
             KindOfCurrent = KindOfCurrent decoded;
             Value = DecodeAllDigits decoded digits Digit.DigitToInt  
-                |> Option.map (fun value -> if VC_840Decoder.IsNegative decoded then -value else value)
+                |> Option.map (fun value ->  value * VC_840Decoder.IsNegativeScaling decoded)
+                |> Option.map (fun value -> double(value))
         }
 
         result
@@ -29,8 +30,6 @@
         | _  -> match isNotStartByte (List.head buffer) with    
                 | true  -> findValidSequnce  (List.tail buffer)
                 | false -> Some( List.take (min (List.length buffer) numberOfBytesInTelegram) buffer )
-     
-          
 
      let GetAllDataFromBuffer oldBuffer newBuffer =
        let completeBuffer = List.concat [List.ofSeq oldBuffer; List.ofSeq newBuffer]
