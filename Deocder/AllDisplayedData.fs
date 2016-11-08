@@ -24,12 +24,13 @@
          value / byte(Bits.Five) <> byte(1)   
 
      let rec findValidSequnce buffer =  
-        if List.isEmpty buffer then
-           buffer 
-        elif isNotStartByte (List.head buffer) then
-           findValidSequnce  (List.tail buffer)
-        else
-           List.take (min (List.length buffer) numberOfBytesInTelegram) buffer 
+        match buffer with 
+        | [] -> None    
+        | _  -> match isNotStartByte (List.head buffer) with    
+                | true  -> findValidSequnce  (List.tail buffer)
+                | false -> Some( List.take (min (List.length buffer) numberOfBytesInTelegram) buffer )
+     
+          
 
      let GetAllDataFromBuffer oldBuffer newBuffer =
        let completeBuffer = List.concat [List.ofSeq oldBuffer; List.ofSeq newBuffer]
@@ -38,12 +39,10 @@
           let (dataList, buffer) = dataAndBuffer
          
           let parseFrom = findValidSequnce buffer
-          
-          if List.length parseFrom = numberOfBytesInTelegram then
-              GetAllDataFromBufferInner ((GetAllData parseFrom) :: dataList,  List.skipWhile isNotStartByte  buffer |> List.skip numberOfBytesInTelegram )
-          else
-              dataAndBuffer
-          
+
+          match(parseFrom) with
+          | Some(x) -> GetAllDataFromBufferInner ((GetAllData x) :: dataList,  List.skipWhile isNotStartByte  buffer |> List.skip numberOfBytesInTelegram )
+          | None    -> dataAndBuffer
 
        let result = GetAllDataFromBufferInner ([], completeBuffer)  
        (fst(result), Array.ofSeq (snd(result)))
