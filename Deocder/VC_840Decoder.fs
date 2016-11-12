@@ -35,8 +35,8 @@
             isBitSetInArray buffer positionDC
 
         match (isAC, isDC) with 
-        | (true, _) ->  Some(ACOrDC.AC)
-        | (_, true) ->  Some(ACOrDC.DC)
+        | (true, false) ->  Some(ACOrDC.AC)
+        | (false, true) ->  Some(ACOrDC.DC)
         | (_, _) -> None
    
 
