@@ -51,7 +51,7 @@
         let isBitSet position =  isBitSetInArray buffer position
         let segmentsSet = List.fold (fun acc (segment, position) -> if isBitSet position then Set.add segment acc else acc) Set.empty patternDigit
 
-        let result = List.tryFind (fun (digit, number) -> digit.Segments = segmentsSet) digitToInt
+        let result = List.tryFind (fun (digit, _) -> digit.Segments = segmentsSet) digitToInt
 
         Option.bind (fun (_, number) -> Some(number)) result
 
