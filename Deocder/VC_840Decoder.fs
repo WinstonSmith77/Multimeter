@@ -2,6 +2,7 @@
     open DecoderTypes
     open TelegramTypes  
     open Digit
+    open Helper
 
     let numberOfBytesInTelegram = 14
 
@@ -61,11 +62,8 @@
 
         let accumlateDigits acc digit = 
               let number = DecodeDigit buffer digit digitToInit
-              let result =  match (number, acc) with
-                            | Some(number), Some(acc) -> Some(timesTenAndAdd number  acc)
-                            | _, _ -> None
 
-              result
+              WithTwoOptions timesTenAndAdd number acc
 
         let result = List.fold (fun acc digit -> accumlateDigits acc digit) result patternsDigit
         

@@ -56,6 +56,7 @@
     <Compile Include="Digits.fs" />
     <Compile Include="TelegramTypes.fs" />
     <Compile Include="DecoderTypes.fs" />
+    <Compile Include="Helper.fs" />
     <Compile Include="VC_840Decoder.fs" />
     <Compile Include="AllDisplayedData.fs" />
     <None Include="Script1.fsx" />
