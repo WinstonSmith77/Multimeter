@@ -61,7 +61,9 @@
 
         let accumlateDigits acc digit = 
               let number = DecodeDigit buffer digit digitToInit
-              let result = Option.bind (fun number -> Option.map (fun acc -> timesTenAndAdd number acc) acc) number
+              let result =  match (number, acc) with
+                            | Some(number), Some(acc) -> Some(timesTenAndAdd number  acc)
+                            | _, _ -> None
 
               result
 
