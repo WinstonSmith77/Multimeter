@@ -28,6 +28,7 @@
             Value = DecodeAllDigits decoded digits Digit.DigitToInt  
                 |> Option.map (fun value ->  value * VC_840Decoder.IsNegativeScaling decoded)
                 |> Option.map (fun value -> double(value))
+                |> Helper.MapTwoOptionsIfBothAreSome  (fun a b -> a * b) scalingDueToDecimalPointer
         }
 
         result
