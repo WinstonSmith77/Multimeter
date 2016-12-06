@@ -63,7 +63,7 @@
         let accumlateDigits acc digit = 
               let number = DecodeDigit buffer digit digitToInit
 
-              WithTwoOptions timesTenAndAdd number acc
+              withTwoOptions timesTenAndAdd number acc
 
         let result = List.fold (fun acc digit -> accumlateDigits acc digit) result patternsDigit
         
