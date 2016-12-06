@@ -9,9 +9,20 @@
         Value : double option
      }
 
+
+     let GetScalingFromDecimalPoints decimalPointOne decimalPointTwo decimalPointThree decoded =
+        let isBitSet = isBitSetInArray decoded
+        match(isBitSet decimalPointOne, isBitSet decimalPointTwo, isBitSet decimalPointThree) with
+        | (true, false, false) -> Some(0.1)
+        | (false, true, false) -> Some(0.01)
+        | (false, false, true) -> Some(0.001)
+        | _ -> None
+
+
      let GetAllData raw =
         let digits = [digitFour; digitThree; digitTwo; digitOne]
         let decoded = Decode raw
+        let scalingDueToDecimalPointer = GetScalingFromDecimalPoints decimalPointOne decimalPointTwo decimalPointThree decoded
         let result = {
             KindOfCurrent = KindOfCurrent decoded;
             Value = DecodeAllDigits decoded digits Digit.DigitToInt  

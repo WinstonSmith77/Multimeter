@@ -36,9 +36,9 @@
             isBitSetInArray buffer positionDC
 
         match (isAC, isDC) with 
-        | (true, _) ->  Some(ACOrDC.AC)
-        | (_, true) ->  Some(ACOrDC.DC)
-        | (_, _) -> None
+        | (true, false) ->  Some(ACOrDC.AC)
+        | (false, true) ->  Some(ACOrDC.DC)
+        | _ -> None
    
 
     let BufferToString buffer = 
@@ -63,7 +63,7 @@
         let accumlateDigits acc digit = 
               let number = DecodeDigit buffer digit digitToInit
 
-              withTwoOptions timesTenAndAdd number acc
+              MapTwoOptionsIfBothAreSome timesTenAndAdd number acc
 
         let result = List.fold (fun acc digit -> accumlateDigits acc digit) result patternsDigit
         

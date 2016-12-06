@@ -45,3 +45,9 @@
     let digitThree = digit BytesInTelegram.Four BytesInTelegram.Five
     let digitFour = digit BytesInTelegram.Two BytesInTelegram.Three
 
+    let decimalPoint byte = {Byte = byte; Bit = Bits.Four}
+
+    let decimalPointOne = decimalPoint BytesInTelegram.Eight
+    let decimalPointTwo = decimalPoint BytesInTelegram.Six
+    let decimalPointThree = decimalPoint BytesInTelegram.Four
+
