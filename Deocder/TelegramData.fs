@@ -1,11 +1,9 @@
 ﻿module TelegramData
 
     open Digit
+    open MeasurementTypes
     
-     type DecodedBuffer =   
-        {
-            Buffer:byte array 
-        }   
+    type DecodedBuffer = {  Buffer:byte array }   
 
     [<System.FlagsAttribute>]
      type Bits =
@@ -27,6 +25,8 @@
            |    Seven = 6
            |    Eight = 7
            |    Nine = 8
+           |    Ten = 9
+           |    Eleven = 10
           
      type BinaryPosition = {
         Bit : Bits
@@ -56,4 +56,12 @@
     let decimalPointOne = decimalPoint BytesInTelegram.Eight
     let decimalPointTwo = decimalPoint BytesInTelegram.Six
     let decimalPointThree = decimalPoint BytesInTelegram.Four
+
+    let unitToPosition = [
+                            (Factor.Kilo, {Byte = BytesInTelegram.Ten; Bit = Bits.Two});
+                            (Factor.Nano, {Byte = BytesInTelegram.Ten; Bit = Bits.Three});
+                            (Factor.Micro, {Byte = BytesInTelegram.Ten; Bit = Bits.Four});
+                            (Factor.Mega, {Byte = BytesInTelegram.Eleven; Bit = Bits.Two});
+                            (Factor.Milli, {Byte = BytesInTelegram.Eleven; Bit = Bits.Four})
+                         ]
 

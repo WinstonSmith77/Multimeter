@@ -54,12 +54,11 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Digits.fs" />
-    <Compile Include="TelegramData.fs" />
     <Compile Include="MeasurementTypes.fs" />
+    <Compile Include="TelegramData.fs" />
     <Compile Include="Helper.fs" />
     <Compile Include="VC_840Decoder.fs" />
     <Compile Include="AllDisplayedData.fs" />
-    <None Include="Script1.fsx" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
