@@ -21,8 +21,8 @@ namespace Tests
         [Test]
         public static void IsNegativ()
         {
-            var value = AllDisplayedData.GetAllData(_bufferIsNegativAndIsDc).Value.Value;
-            value.Should().BeLessThan(0);
+            var value = AllDisplayedData.GetAllData(_bufferIsNegativAndIsDc);
+            value.Value.Value.Should().BeLessThan(0);
         }
 
         [Test]

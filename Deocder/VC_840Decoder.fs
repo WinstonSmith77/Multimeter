@@ -28,6 +28,12 @@
        | true -> -1
        | false -> 1
 
+    let FindScaling buffer factorToPosition =
+        let foundScaling = List.tryFind (fun (_, position) -> isBitSetInArray buffer position) factorToPosition
+        match foundScaling with 
+        | Some(factor, _) -> getFactorValue factor
+        | None -> 0
+
     let KindOfCurrent buffer =
         let isAC  =     
             isBitSetInArray buffer positionAC

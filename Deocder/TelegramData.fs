@@ -57,7 +57,7 @@
     let decimalPointTwo = decimalPoint BytesInTelegram.Six
     let decimalPointThree = decimalPoint BytesInTelegram.Four
 
-    let unitToPosition = [
+    let factorToPosition = [
                             (Factor.Kilo, {Byte = BytesInTelegram.Ten; Bit = Bits.Two});
                             (Factor.Nano, {Byte = BytesInTelegram.Ten; Bit = Bits.Three});
                             (Factor.Micro, {Byte = BytesInTelegram.Ten; Bit = Bits.Four});

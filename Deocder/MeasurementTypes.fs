@@ -11,12 +11,20 @@
         | Farad
         | Hertz
 
-    [<System.FlagsAttribute>]
+   
     type Factor =   
-        | Nano = -9
-        | Micro = -6
-        | Milli = -3
-        | Kilo = 3
-        | Mega = 6
+        | Nano 
+        | Micro 
+        | Milli 
+        | Kilo
+        | Mega 
+
+    let getFactorValue factor = match factor with
+                                | Nano -> -9 
+                                | Micro -> -6  
+                                | Milli -> -3  
+                                | Kilo -> 3  
+                                | Mega -> 6
+                            
                
         
