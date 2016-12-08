@@ -1,14 +1,14 @@
 ﻿module VC_840Decoder
-    open DecoderTypes
-    open TelegramTypes  
+    open TelegramData
     open Digit
     open Helper
+    open MeasurementTypes
 
     let numberOfBytesInTelegram = 14
 
     let Decode raw =
        let getIndex rawByte = rawByte / byte(Bits.Five)
-       let getData rawByte = rawByte &&& byte(Bits.All)
+       let getData rawByte = rawByte &&& byte(Bits.AllLowerHalf)
        { Buffer =
             raw 
             |> Seq.map (fun rawByte -> (getIndex rawByte, getData rawByte) )

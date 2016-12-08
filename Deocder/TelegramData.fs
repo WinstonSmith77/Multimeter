@@ -1,5 +1,11 @@
-﻿module TelegramTypes
+﻿module TelegramData
+
     open Digit
+    
+     type DecodedBuffer =   
+        {
+            Buffer:byte array 
+        }   
 
     [<System.FlagsAttribute>]
      type Bits =
@@ -7,7 +13,7 @@
            |    Two = 2
            |    Three = 4
            |    Four = 8
-           |    All = 15
+           |    AllLowerHalf = 15
            |    Five = 16
 
     [<System.FlagsAttribute>]

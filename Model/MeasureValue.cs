@@ -19,9 +19,9 @@ namespace Model
 
         public bool IsNegative => Value < 0;
 
-        public bool IsAC => _data.KindOfCurrent.GetOption(DecoderTypes.ACOrDC.DC).Equals(DecoderTypes.ACOrDC.AC);
+        public bool IsAC => _data.KindOfCurrent.GetOption(MeasurementTypes.ACOrDC.DC).Equals(MeasurementTypes.ACOrDC.AC);
 
-        public bool IsDC => _data.KindOfCurrent.GetOption(DecoderTypes.ACOrDC.AC).Equals(DecoderTypes.ACOrDC.DC);
+        public bool IsDC => _data.KindOfCurrent.GetOption(MeasurementTypes.ACOrDC.AC).Equals(MeasurementTypes.ACOrDC.DC);
 
         public double Value
         {

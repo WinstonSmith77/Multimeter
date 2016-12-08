@@ -29,14 +29,14 @@ namespace Tests
         public static void IsDC()
         {
             var value = AllDisplayedData.GetAllData(_bufferIsNegativAndIsDc);
-            value.KindOfCurrent.Should().Be(FSharpOption<DecoderTypes.ACOrDC>.Some(DecoderTypes.ACOrDC.DC));
+            value.KindOfCurrent.Should().Be(FSharpOption<MeasurementTypes.ACOrDC>.Some(MeasurementTypes.ACOrDC.DC));
         }
 
         [Test]
         public static void IsAC()
         {
             var value = AllDisplayedData.GetAllData(_bufferIsAC);
-            value.KindOfCurrent.Should().Be(FSharpOption<DecoderTypes.ACOrDC>.Some(DecoderTypes.ACOrDC.AC));
+            value.KindOfCurrent.Should().Be(FSharpOption<MeasurementTypes.ACOrDC>.Some(MeasurementTypes.ACOrDC.AC));
         }
     }
 }

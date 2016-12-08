@@ -1,14 +1,13 @@
 ﻿module AllDisplayedData
-    open DecoderTypes
+    open MeasurementTypes
     open VC_840Decoder
     open Digit
-    open TelegramTypes
+    open TelegramData
 
      type AllDisplayedData = {
         KindOfCurrent : ACOrDC option
         Value : double option
      }
-
 
      let GetScalingFromDecimalPoints decimalPointOne decimalPointTwo decimalPointThree decoded =
         let isBitSet = isBitSetInArray decoded
