@@ -4,7 +4,7 @@
     open Helper
     open MeasurementTypes
 
-    let numberOfBytesInTelegram = 14
+   
 
     let Decode raw =
        let getIndex rawByte = rawByte / byte(Bits.Five)
