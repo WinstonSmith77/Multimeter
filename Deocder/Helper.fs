@@ -10,7 +10,7 @@ module Helper
         | Some(a, _) -> Some(a)
         | None -> None
 
- let TryFirst list =
+ let TrySingle list =
        match list with
         | [first] -> Some(first)
         | _ -> None

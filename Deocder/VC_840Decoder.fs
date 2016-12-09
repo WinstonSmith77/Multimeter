@@ -31,7 +31,7 @@
     let findInMapping buffer mapping =
         let allFound = List.where (fun (_, position) -> isBitSetInArray buffer position) mapping
 
-        TryFirst allFound
+        TrySingle allFound
      
 
     let FindScaling buffer factorToPosition =
