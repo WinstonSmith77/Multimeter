@@ -29,6 +29,8 @@
            |    Nine = 8
            |    Ten = 9
            |    Eleven = 10
+           |    Twelve = 11
+           |    Thirteen = 12
           
      type BinaryPosition = {
         Bit : Bits
@@ -65,5 +67,14 @@
                             (Factor.Micro, {Byte = BytesInTelegram.Ten; Bit = Bits.Four});
                             (Factor.Mega, {Byte = BytesInTelegram.Eleven; Bit = Bits.Two});
                             (Factor.Milli, {Byte = BytesInTelegram.Eleven; Bit = Bits.Four})
+                         ]
+
+                         
+    let unitToPosition = [
+                            (Unit.Ampere, {Byte = BytesInTelegram.Thirteen; Bit = Bits.Four});
+                            (Unit.Volt, {Byte = BytesInTelegram.Thirteen; Bit = Bits.Three});
+                            (Unit.Hertz, {Byte = BytesInTelegram.Thirteen; Bit = Bits.Two});
+                            (Unit.Ohm, {Byte = BytesInTelegram.Twelve; Bit = Bits.Three});
+                            (Unit.Farad, {Byte = BytesInTelegram.Twelve; Bit = Bits.Four});
                          ]
 

@@ -8,6 +8,7 @@
         KindOfCurrent : ACOrDC option
         Value : double option
         Factor : int
+        Unit : Unit option
      }
 
      let GetScalingFromDecimalPoints decimalPointOne decimalPointTwo decimalPointThree decoded =
@@ -24,10 +25,11 @@
         let decoded = Decode raw
         let scalingDueToDecimalPointer = GetScalingFromDecimalPoints decimalPointOne decimalPointTwo decimalPointThree decoded
         let result = {
+            Unit = FindUnit decoded unitToPosition
             Factor = FindScaling decoded factorToPosition
             KindOfCurrent = KindOfCurrent decoded
-            Value = DecodeAllDigits decoded digits Digit.DigitToInt  
-                |> Option.map (fun value ->  value * VC_840Decoder.IsNegativeScaling decoded)
+            Value = DecodeAllDigits decoded digits DigitToInt  
+                |> Option.map (fun value ->  value * IsNegativeScaling decoded)
                 |> Option.map (fun value -> double(value))
                 |> Helper.MapTwoOptionsIfBothAreSome  (fun a b -> a * b) scalingDueToDecimalPointer
         }

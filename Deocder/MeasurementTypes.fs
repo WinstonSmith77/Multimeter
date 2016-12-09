@@ -10,7 +10,6 @@
         | Ohm
         | Farad
         | Hertz
-
    
     type Factor =   
         | Nano 

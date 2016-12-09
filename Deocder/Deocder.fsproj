@@ -59,7 +59,6 @@
     <Compile Include="Helper.fs" />
     <Compile Include="VC_840Decoder.fs" />
     <Compile Include="AllDisplayedData.fs" />
-    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Data">
