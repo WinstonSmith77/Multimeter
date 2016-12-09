@@ -27,7 +27,7 @@
         let result = {
             Unit = FindUnit decoded unitToPosition
             Factor = FindScaling decoded factorToPosition
-            KindOfCurrent = KindOfCurrent decoded
+            KindOfCurrent = KindOfCurrent decoded currentToPosition
             Value = DecodeAllDigits decoded digits DigitToInt  
                 |> Option.map (fun value ->  value * IsNegativeScaling decoded)
                 |> Option.map (fun value -> double(value))

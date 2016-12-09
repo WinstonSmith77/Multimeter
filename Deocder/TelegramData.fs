@@ -37,8 +37,7 @@
         Byte : BytesInTelegram
      }
 
-     let positionAC = {Byte = BytesInTelegram.One; Bit = Bits.Four}
-     let positionDC = {Byte = BytesInTelegram.One; Bit = Bits.Three}
+   
      let postionNegativeSign = {Byte = BytesInTelegram.Two; Bit = Bits.Four}
            
      let digit firstByte secondByte = 
@@ -77,4 +76,9 @@
                             (Unit.Ohm, {Byte = BytesInTelegram.Twelve; Bit = Bits.Three});
                             (Unit.Farad, {Byte = BytesInTelegram.Twelve; Bit = Bits.Four});
                          ]
+
+    let currentToPosition = [
+                                (ACOrDC.AC, {Byte = BytesInTelegram.One; Bit = Bits.Four});
+                                (ACOrDC.DC, {Byte = BytesInTelegram.One; Bit = Bits.Three});
+                            ]
 

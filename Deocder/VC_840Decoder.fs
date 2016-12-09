@@ -29,7 +29,10 @@
        | false -> 1
 
     let findInMapping buffer mapping =
-         List.tryFind (fun (_, position) -> isBitSetInArray buffer position) mapping
+        let allFound = List.where (fun (_, position) -> isBitSetInArray buffer position) mapping
+
+        TryFirst allFound
+     
 
     let FindScaling buffer factorToPosition =
         let foundScaling = findInMapping buffer factorToPosition
@@ -39,22 +42,11 @@
 
     let FindUnit buffer unitToPosition =
         let foundUnit = findInMapping buffer unitToPosition
-        match foundUnit with 
-        | Some(unit, _) -> Some(unit)
-        | None -> None
+        FirstFromOptionTuple foundUnit
 
-    let KindOfCurrent buffer =
-        let isAC  =     
-            isBitSetInArray buffer positionAC
-
-        let isDC  =     
-            isBitSetInArray buffer positionDC
-
-        match (isAC, isDC) with 
-        | (true, false) ->  Some(ACOrDC.AC)
-        | (false, true) ->  Some(ACOrDC.DC)
-        | _ -> None
-   
+    let KindOfCurrent buffer currentToBuffer =
+        let foundCurrent = findInMapping buffer currentToBuffer
+        FirstFromOptionTuple foundCurrent
 
     let BufferToString buffer = 
         let innerResult =
