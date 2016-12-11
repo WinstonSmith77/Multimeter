@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Interface;
 
 namespace Model
 {
     public class NewMeasureValueEventArgs : EventArgs
     {
-        public IMeasureValue Value { get; private set; }
+        public MeasureValue Value { get; private set; }
 
-        public NewMeasureValueEventArgs(IMeasureValue value)
+        public NewMeasureValueEventArgs(MeasureValue value)
         {
             Value = value;
         }

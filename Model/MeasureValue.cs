@@ -5,14 +5,13 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using Interface;
 using Microsoft.FSharp.Core;
 using Misc;
 
 namespace Model
 {
     
-    public class MeasureValue : IMeasureValue
+    public class MeasureValue 
     {
         private readonly AllDisplayedData.AllDisplayedData _data;
 
