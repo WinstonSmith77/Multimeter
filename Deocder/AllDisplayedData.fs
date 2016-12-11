@@ -43,8 +43,10 @@
         match buffer with 
         | [] -> None    
         | _  -> match isNotStartByte (List.head buffer) with    
+                | false -> match List.length buffer with
+                           | length when length >= numberOfBytesInTelegram ->  Some(List.take numberOfBytesInTelegram buffer)
+                           | _ -> None
                 | true  -> findValidSequence  (List.tail buffer)
-                | false -> Some( List.take (min (List.length buffer) numberOfBytesInTelegram) buffer )
 
      let MergeBuffers a b =
         List.concat [List.ofSeq a; List.ofSeq b]   
