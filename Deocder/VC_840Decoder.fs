@@ -33,11 +33,8 @@
 
         TrySingle allFound
 
-    let FindScaling buffer factorToPosition =
-        let foundScaling = findInMapping buffer factorToPosition
-        match foundScaling with 
-        | Some(factor, _) -> getFactorValue factor
-        | None -> 0
+    let FindFactor buffer factorToPosition =
+        findInMapping buffer factorToPosition |> FirstFromOptionTuple
 
     let FindUnit buffer unitToPosition =
         let foundUnit = findInMapping buffer unitToPosition

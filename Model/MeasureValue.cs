@@ -22,7 +22,8 @@ namespace Model
 
         public bool IsDC => _data.KindOfCurrent.GetOption(MeasurementTypes.ACOrDC.AC).Equals(MeasurementTypes.ACOrDC.DC);
 
-        public string Unit => _data.Unit.ToString();
+        public string Unit => _data.Unit;
+      
 
         public double Value
         {
@@ -32,6 +33,8 @@ namespace Model
                 return number;
             }
         }
+
+        public string Factor => _data.Factor.Item2;
 
         public MeasureValue(AllDisplayedData.AllDisplayedData data)
         {

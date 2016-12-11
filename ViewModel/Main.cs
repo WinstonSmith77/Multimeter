@@ -22,6 +22,7 @@ namespace ViewModel
                 IsDC = value.IsDC;
                 Value = value.Value;
                 Unit = value.Unit;
+                Scaling = value.Factor;
             };
         }
 
@@ -73,6 +74,8 @@ namespace ViewModel
         }
 
         private string _unit;
+        private string _scaling;
+
         public string Unit
         {
             get
@@ -84,6 +87,19 @@ namespace ViewModel
                 if (value.Equals(_unit)) return;
                 _unit = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public string Scaling
+        {
+            get { return _scaling; }
+            set
+            {
+                if (value != _scaling)
+                {
+                    _scaling = value;
+                    OnPropertyChanged();
+                }
             }
         }
 

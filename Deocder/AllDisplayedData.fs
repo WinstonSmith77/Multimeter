@@ -7,7 +7,7 @@
      type AllDisplayedData = {
         KindOfCurrent : ACOrDC option
         Value : double option
-        Factor : int
+        Factor : int * string
         Unit : string
      }
 
@@ -20,13 +20,16 @@
         | _ -> None
 
 
+   
+
      let GetAllData raw =
         let digits = [digitFour; digitThree; digitTwo; digitOne]
         let decoded = Decode raw
         let scalingDueToDecimalPointer = GetScalingFromDecimalPoints decimalPointOne decimalPointTwo decimalPointThree decoded
+        let factor = FindFactor decoded factorToPosition
         let result = {
             Unit = FindUnit decoded unitToPosition  |> unitToString
-            Factor = FindScaling decoded factorToPosition
+            Factor = (factorToValue factor, (function | Some(factor) -> factorToString factor | _ -> "" ) factor) 
             KindOfCurrent = KindOfCurrent decoded currentToPosition
             Value = DecodeAllDigits decoded digits DigitToInt  
                 |> Option.map (fun value ->  value * IsNegativeScaling decoded)

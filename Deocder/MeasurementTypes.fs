@@ -13,11 +13,11 @@
 
     let unitToString unit =
         match unit with
-        | Some(Volt) -> "Volt"
-        | Some(Ampere) -> "Ampere"
+        | Some(Volt) -> "V"
+        | Some(Ampere) -> "A"
         | Some(Ohm) -> "Ohm"
-        | Some(Farad) -> "Farad"
-        | Some(Hertz) -> "Hertz"
+        | Some(Farad) -> "F"
+        | Some(Hertz) -> "Hz"
         | None -> ""
    
     type Factor =   
@@ -27,12 +27,25 @@
         | Kilo
         | Mega 
 
-    let getFactorValue factor = match factor with
-                                | Nano -> -9 
-                                | Micro -> -6  
-                                | Milli -> -3  
-                                | Kilo -> 3  
-                                | Mega -> 6
+    let factorToValue factor =   
+        let factorToValueInner factor = match factor with
+                                        | Nano -> -9 
+                                        | Micro -> -6  
+                                        | Milli -> -3  
+                                        | Kilo -> 3  
+                                        | Mega -> 6    
+        match factor with
+        | Some(scaling) -> factorToValueInner scaling
+        | None -> 1
+
+   
+
+    let factorToString factor = match factor with
+                                 | Nano -> "n"
+                                 | Micro -> "µ"  
+                                 | Milli -> "m"  
+                                 | Kilo -> "k"  
+                                 | Mega -> "M"
                             
                
         
