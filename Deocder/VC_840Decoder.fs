@@ -1,13 +1,14 @@
 ﻿module VC_840Decoder
-    open DecoderTypes
-    open TelegramTypes  
+    open TelegramData
     open Digit
+    open Helper
+    open MeasurementTypes
 
-    let numberOfBytesInTelegram = 14
+   
 
     let Decode raw =
        let getIndex rawByte = rawByte / byte(Bits.Five)
-       let getData rawByte = rawByte &&& byte(Bits.All)
+       let getData rawByte = rawByte &&& byte(Bits.AllLowerHalf)
        { Buffer =
             raw 
             |> Seq.map (fun rawByte -> (getIndex rawByte, getData rawByte) )
@@ -27,18 +28,24 @@
        | true -> -1
        | false -> 1
 
-    let KindOfCurrent buffer =
-        let isAC  =     
-            isBitSetInArray buffer positionAC
+    let findInMapping buffer mapping =
+        let allFound = List.where (fun (_, position) -> isBitSetInArray buffer position) mapping
 
-        let isDC  =     
-            isBitSetInArray buffer positionDC
+        TrySingle allFound
 
-        match (isAC, isDC) with 
-        | (true, false) ->  Some(ACOrDC.AC)
-        | (false, true) ->  Some(ACOrDC.DC)
-        | (_, _) -> None
-   
+    let FindScaling buffer factorToPosition =
+        let foundScaling = findInMapping buffer factorToPosition
+        match foundScaling with 
+        | Some(factor, _) -> getFactorValue factor
+        | None -> 0
+
+    let FindUnit buffer unitToPosition =
+        let foundUnit = findInMapping buffer unitToPosition
+        FirstFromOptionTuple foundUnit
+
+    let KindOfCurrent buffer currentToBuffer =
+        let foundCurrent = findInMapping buffer currentToBuffer
+        FirstFromOptionTuple foundCurrent
 
     let BufferToString buffer = 
         let innerResult =
@@ -61,9 +68,8 @@
 
         let accumlateDigits acc digit = 
               let number = DecodeDigit buffer digit digitToInit
-              let result = Option.bind (fun number -> Option.map (fun acc -> timesTenAndAdd number acc) acc) number
 
-              result
+              MapTwoOptionsIfBothAreSome timesTenAndAdd number acc
 
         let result = List.fold (fun acc digit -> accumlateDigits acc digit) result patternsDigit
         

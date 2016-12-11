@@ -1,4 +1,5 @@
 ﻿module Digit
+
     type SevenSegment=
         | Top
         | Center
