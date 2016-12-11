@@ -10,6 +10,15 @@
         | Ohm
         | Farad
         | Hertz
+
+    let unitToString unit =
+        match unit with
+        | Some(Volt) -> "Volt"
+        | Some(Ampere) -> "Ampere"
+        | Some(Ohm) -> "Ohm"
+        | Some(Farad) -> "Farad"
+        | Some(Hertz) -> "Hertz"
+        | None -> ""
    
     type Factor =   
         | Nano 

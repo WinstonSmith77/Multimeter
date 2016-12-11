@@ -12,5 +12,6 @@ namespace Interface
         bool IsAC { get; }
         bool IsDC { get; }
         double Value { get; }
+        string Unit { get; }
     }
 }

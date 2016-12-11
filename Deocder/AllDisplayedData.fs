@@ -8,7 +8,7 @@
         KindOfCurrent : ACOrDC option
         Value : double option
         Factor : int
-        Unit : Unit option
+        Unit : string
      }
 
      let GetScalingFromDecimalPoints decimalPointOne decimalPointTwo decimalPointThree decoded =
@@ -25,7 +25,7 @@
         let decoded = Decode raw
         let scalingDueToDecimalPointer = GetScalingFromDecimalPoints decimalPointOne decimalPointTwo decimalPointThree decoded
         let result = {
-            Unit = FindUnit decoded unitToPosition
+            Unit = FindUnit decoded unitToPosition  |> unitToString
             Factor = FindScaling decoded factorToPosition
             KindOfCurrent = KindOfCurrent decoded currentToPosition
             Value = DecodeAllDigits decoded digits DigitToInt  

@@ -23,6 +23,8 @@ namespace Model
 
         public bool IsDC => _data.KindOfCurrent.GetOption(MeasurementTypes.ACOrDC.AC).Equals(MeasurementTypes.ACOrDC.DC);
 
+        public string Unit => _data.Unit.ToString();
+
         public double Value
         {
             get

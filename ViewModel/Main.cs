@@ -21,6 +21,7 @@ namespace ViewModel
                 IsAC = value.IsAC;
                 IsDC = value.IsDC;
                 Value = value.Value;
+                Unit = value.Unit;
             };
         }
 
@@ -67,6 +68,21 @@ namespace ViewModel
             {
                 if (value.Equals(_isAc)) return;
                 _isAc = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _unit;
+        public string Unit
+        {
+            get
+            {
+                return _unit;
+            }
+            set
+            {
+                if (value.Equals(_unit)) return;
+                _unit = value;
                 OnPropertyChanged();
             }
         }
