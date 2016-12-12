@@ -1,5 +1,7 @@
 ﻿module MeasurementTypes
 
+    open Helper
+
     type ACOrDC =
         | AC 
         | DC
@@ -12,13 +14,17 @@
         | Hertz
 
     let unitToString unit =
-        match unit with
-        | Some(Volt) -> "V"
-        | Some(Ampere) -> "A"
-        | Some(Ohm) -> "Ohm"
-        | Some(Farad) -> "F"
-        | Some(Hertz) -> "Hz"
-        | None -> ""
+        let unitToStringInner _ unit =
+            match unit with
+            | Volt -> "V"
+            | Ampere -> "A"
+            | Ohm -> "Ohm"
+            | Farad -> "F"
+            | Hertz -> "Hz"
+       
+        Option.fold unitToStringInner "" unit
+
+        
    
     type Factor =   
         | Nano 
@@ -28,15 +34,14 @@
         | Mega 
 
     let factorToValue factor =   
-        let factorToValueInner factor = match factor with
-                                        | Nano -> -9 
-                                        | Micro -> -6  
-                                        | Milli -> -3  
-                                        | Kilo -> 3  
-                                        | Mega -> 6    
-        match factor with
-        | Some(scaling) -> factorToValueInner scaling
-        | None -> 1
+        let factorToValueInner _ factor = match factor with
+                                          | Nano -> -9 
+                                          | Micro -> -6  
+                                          | Milli -> -3  
+                                          | Kilo -> 3  
+                                          | Mega -> 6    
+
+        Option.fold factorToValueInner 0 factor
 
    
 

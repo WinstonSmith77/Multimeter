@@ -34,7 +34,7 @@ namespace Model
             }
         }
 
-        public string Factor => _data.Factor.Item2;
+        public string Factor => _data.Factor.Text;
 
         public MeasureValue(AllDisplayedData.AllDisplayedData data)
         {
