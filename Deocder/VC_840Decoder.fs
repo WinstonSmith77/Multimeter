@@ -17,31 +17,31 @@
             |> Seq.toArray
         }
 
-    let isBitSet input index =
+    let IsBitSet input index =
          input &&& (byte index) <> byte(0)
 
-    let isBitSetInArray (input:DecodedBuffer) position =
-        isBitSet input.Buffer.[int position.Byte]  position.Bit
+    let IsBitSetInArray (input:DecodedBuffer) position =
+        IsBitSet input.Buffer.[int position.Byte]  position.Bit
 
     let IsNegativeScaling buffer =     
-       match isBitSetInArray buffer postionNegativeSign with
+       match IsBitSetInArray buffer postionNegativeSign with
        | true -> -1
        | false -> 1
 
-    let findInMapping buffer mapping =
-        let allFound = List.where (fun (_, position) -> isBitSetInArray buffer position) mapping
+    let FindInMapping buffer mapping =
+        let allFound = List.where (fun (_, position) -> IsBitSetInArray buffer position) mapping
 
         TrySingle allFound
 
     let FindFactor buffer factorToPosition =
-        findInMapping buffer factorToPosition |> FirstFromOptionTuple
+        FindInMapping buffer factorToPosition |> FirstFromOptionTuple
 
     let FindUnit buffer unitToPosition =
-        let foundUnit = findInMapping buffer unitToPosition
+        let foundUnit = FindInMapping buffer unitToPosition
         FirstFromOptionTuple foundUnit
 
     let KindOfCurrent buffer currentToBuffer =
-        let foundCurrent = findInMapping buffer currentToBuffer
+        let foundCurrent = FindInMapping buffer currentToBuffer
         FirstFromOptionTuple foundCurrent
 
     let BufferToString buffer = 
@@ -52,7 +52,7 @@
         "new byte[] {" + innerResult.TrimEnd(',') + "}";
    
     let DecodeDigit buffer patternDigit digitToInt =        
-        let isBitSet position =  isBitSetInArray buffer position
+        let isBitSet position =  IsBitSetInArray buffer position
         let segmentsSet = List.fold (fun acc (segment, position) -> if isBitSet position then Set.add segment acc else acc) Set.empty patternDigit
 
         let result = List.tryFind (fun (digit, _) -> digit.Segments = segmentsSet) digitToInt

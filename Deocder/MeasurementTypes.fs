@@ -13,7 +13,7 @@
         | Farad
         | Hertz
 
-    let unitToString unit =
+    let UnitToString unit =
         let unitToStringInner _ unit =
             match unit with
             | Volt -> "V"
@@ -23,8 +23,6 @@
             | Hertz -> "Hz"
        
         Option.fold unitToStringInner "" unit
-
-        
    
     type Factor =   
         | Nano 
@@ -33,7 +31,7 @@
         | Kilo
         | Mega 
 
-    let factorToValue factor =   
+    let FactorToValue factor =   
         let factorToValueInner _ factor = match factor with
                                           | Nano -> -9 
                                           | Micro -> -6  
@@ -45,7 +43,7 @@
 
    
 
-    let factorToString factor = match factor with
+    let FactorToString factor = match factor with
                                  | Nano -> "n"
                                  | Micro -> "µ"  
                                  | Milli -> "m"  
