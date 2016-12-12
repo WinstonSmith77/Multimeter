@@ -20,7 +20,7 @@
     let IsBitSet input index =
          input &&& (byte index) <> byte(0)
 
-    let IsBitSetInArray (input:DecodedBuffer) position =
+    let IsBitSetInArray input position =
         IsBitSet input.Buffer.[int position.Byte]  position.Bit
 
     let IsNegativeScaling buffer =     
@@ -60,7 +60,6 @@
         Option.bind (fun (_, number) -> Some(number)) result
 
     let DecodeAllDigits buffer patternsDigit digitToInit =    
-        let result = Some(0)
         let timesTenAndAdd  b a = a * 10 + b
 
         let accumlateDigits acc digit = 
@@ -68,8 +67,6 @@
 
               MapTwoOptionsIfBothAreSome timesTenAndAdd number acc
 
-        let result = List.fold (fun acc digit -> accumlateDigits acc digit) result patternsDigit
-        
-        result
+        List.fold (fun acc digit -> accumlateDigits acc digit) (Some(0)) patternsDigit
 
         
