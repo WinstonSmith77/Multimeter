@@ -43,12 +43,15 @@
 
    
 
-    let FactorToString factor = match factor with
-                                 | Nano -> "n"
-                                 | Micro -> "µ"  
-                                 | Milli -> "m"  
-                                 | Kilo -> "k"  
-                                 | Mega -> "M"
+    let FactorToString factor =  
+        let factorToStringInner _ factor = match factor with
+                                           | Nano -> "n"
+                                           | Micro -> "µ"  
+                                           | Milli -> "m"  
+                                           | Kilo -> "k"  
+                                           | Mega -> "M"
+
+        Option.fold factorToStringInner "" factor
                             
                
         

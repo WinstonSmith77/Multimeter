@@ -31,7 +31,7 @@
         let factor = FindFactor decoded factorToPosition
         let result = {
             Unit = FindUnit decoded unitToPosition  |> UnitToString
-            Factor = { Value = FactorToValue factor;  Text = (function | Some(factor) -> FactorToString factor | _ -> "" ) factor }
+            Factor = { Value = FactorToValue factor;  Text = FactorToString factor }
             KindOfCurrent = KindOfCurrent decoded currentToPosition
             Value = DecodeAllDigits decoded digits DigitToInt  
                 |> Option.map (fun value ->  value * IsNegativeScaling decoded)
@@ -58,14 +58,14 @@
 
      let GetAllDataFromBuffer buffer =
       
-       let rec GetAllDataFromBufferInner dataAndBuffer =
+       let rec getAllDataFromBufferInner dataAndBuffer =
           let (dataList, buffer) = dataAndBuffer
          
           let parseFrom = findValidSequence buffer
 
           match(parseFrom) with
-          | Some(x) -> GetAllDataFromBufferInner ((GetAllData x) :: dataList,  List.skipWhile IsNotStartByte  buffer |> List.skip numberOfBytesInTelegram )
+          | Some(x) -> getAllDataFromBufferInner ((GetAllData x) :: dataList,  List.skipWhile IsNotStartByte  buffer |> List.skip numberOfBytesInTelegram )
           | None    -> dataAndBuffer
 
-       let result = GetAllDataFromBufferInner ([], buffer)  
+       let result = getAllDataFromBufferInner ([], buffer)  
        result

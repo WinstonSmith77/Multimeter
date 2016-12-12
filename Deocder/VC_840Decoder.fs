@@ -4,8 +4,6 @@
     open Helper
     open MeasurementTypes
 
-   
-
     let Decode raw =
        let getIndex rawByte = rawByte / byte(Bits.Five)
        let getData rawByte = rawByte &&& byte(Bits.AllLowerHalf)
