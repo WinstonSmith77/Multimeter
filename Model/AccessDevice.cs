@@ -54,7 +54,7 @@ namespace Model
 
         private void FindNewMeasureValues(byte[] buffer)
         {
-            var value = AllDisplayedData.GetAllDataFromBuffer(AllDisplayedData.MergeBuffers(this._oldBuffer, buffer));
+            var value = BufferHandling.GetAllDataFromBuffer(BufferHandling.MergeBuffers(this._oldBuffer, buffer));
             this._oldBuffer = value.Item2.ToArray();
 
             value.Item1.FirstAsList().ForEach(meas => NewMeasurement?.Invoke(this, new NewMeasureValueEventArgs(new MeasureValue(meas))));

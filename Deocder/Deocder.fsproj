@@ -57,8 +57,9 @@
     <Compile Include="Helper.fs" />
     <Compile Include="MeasurementTypes.fs" />
     <Compile Include="TelegramData.fs" />
-    <Compile Include="VC_840Decoder.fs" />
-    <Compile Include="AllDisplayedData.fs" />
+    <Compile Include="Decoding.fs" />
+    <Compile Include="Data.fs" />
+    <Compile Include="BufferHandling.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

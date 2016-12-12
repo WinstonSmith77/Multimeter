@@ -1,6 +1,6 @@
-﻿module AllDisplayedData
+﻿module Data
     open MeasurementTypes
-    open VC_840Decoder
+    open Decoding
     open Digit
     open TelegramData
 
@@ -39,29 +39,4 @@
                 |> Helper.MapTwoOptionsIfBothAreSome  (fun a b -> a * float(b)) scalingDueToDecimalPointer
         }
 
-     let IsNotStartByte value =
-         value / byte(Bits.Five) <> byte(1)   
-
-     let rec findValidSequence buffer =  
-        match buffer with 
-        | [] -> None    
-        | _  -> match IsNotStartByte (List.head buffer) with    
-                | false -> match List.length buffer with
-                           | length when length >= numberOfBytesInTelegram ->  Some(List.take numberOfBytesInTelegram buffer)
-                           | _ -> None
-                | true  -> findValidSequence  (List.tail buffer)
-
-     let MergeBuffers a b =
-        List.concat [List.ofSeq a; List.ofSeq b]   
-
-     let GetAllDataFromBuffer buffer =
-       let rec getAllDataFromBufferInner dataAndBuffer =
-          let (dataList, buffer) = dataAndBuffer
-         
-          let parseFrom = findValidSequence buffer
-
-          match(parseFrom) with
-          | Some(x) -> getAllDataFromBufferInner ((GetAllData x) :: dataList,  List.skipWhile IsNotStartByte  buffer |> List.skip numberOfBytesInTelegram )
-          | None    -> dataAndBuffer
-
-       getAllDataFromBufferInner ([], buffer)  
+    

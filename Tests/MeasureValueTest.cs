@@ -20,21 +20,21 @@ namespace Tests
         [Test]
         public static void IsNegativ()
         {
-            var value = AllDisplayedData.GetAllData(_bufferIsNegativAndIsDc);
+            var value = Data.GetAllData(_bufferIsNegativAndIsDc);
             value.Value.Value.Should().BeLessThan(0);
         }
 
         [Test]
         public static void IsDC()
         {
-            var value = AllDisplayedData.GetAllData(_bufferIsNegativAndIsDc);
+            var value = Data.GetAllData(_bufferIsNegativAndIsDc);
             value.KindOfCurrent.Should().Be(FSharpOption<MeasurementTypes.ACOrDC>.Some(MeasurementTypes.ACOrDC.DC));
         }
 
         [Test]
         public static void IsAC()
         {
-            var value = AllDisplayedData.GetAllData(_bufferIsAC);
+            var value = Data.GetAllData(_bufferIsAC);
             value.KindOfCurrent.Should().Be(FSharpOption<MeasurementTypes.ACOrDC>.Some(MeasurementTypes.ACOrDC.AC));
         }
     }

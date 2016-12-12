@@ -5,8 +5,6 @@
     
     type DecodedBuffer = {  Buffer:byte array }   
 
-    let numberOfBytesInTelegram = 14
-
     [<System.FlagsAttribute>]
      type Bits =
            |    One = 1

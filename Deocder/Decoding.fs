@@ -1,4 +1,4 @@
-﻿module VC_840Decoder
+﻿module Decoding
     open TelegramData
     open Digit
     open Helper

@@ -13,7 +13,7 @@ namespace Model
     
     public class MeasureValue 
     {
-        private readonly AllDisplayedData.AllDisplayedData _data;
+        private readonly Data.AllDisplayedData _data;
 
 
         public bool IsNegative => Value < 0;
@@ -36,7 +36,7 @@ namespace Model
 
         public string Factor => _data.Factor.Text;
 
-        public MeasureValue(AllDisplayedData.AllDisplayedData data)
+        public MeasureValue(Data.AllDisplayedData data)
         {
             this._data = data;
         }
