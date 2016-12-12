@@ -29,17 +29,15 @@
         let decoded = Decode raw
         let scalingDueToDecimalPointer = GetScalingFromDecimalPoints decimalPointOne decimalPointTwo decimalPointThree decoded
         let factor = FindFactor decoded factorToPosition
-        let result = {
+        
+        {
             Unit = FindUnit decoded unitToPosition  |> UnitToString
             Factor = { Value = FactorToValue factor;  Text = FactorToString factor }
             KindOfCurrent = KindOfCurrent decoded currentToPosition
             Value = DecodeAllDigits decoded digits DigitToInt  
                 |> Option.map (fun value ->  value * IsNegativeScaling decoded)
-                |> Option.map (fun value -> double(value))
-                |> Helper.MapTwoOptionsIfBothAreSome  (fun a b -> a * b) scalingDueToDecimalPointer
+                |> Helper.MapTwoOptionsIfBothAreSome  (fun a b -> a * float(b)) scalingDueToDecimalPointer
         }
-
-        result
 
      let IsNotStartByte value =
          value / byte(Bits.Five) <> byte(1)   
@@ -57,7 +55,6 @@
         List.concat [List.ofSeq a; List.ofSeq b]   
 
      let GetAllDataFromBuffer buffer =
-      
        let rec getAllDataFromBufferInner dataAndBuffer =
           let (dataList, buffer) = dataAndBuffer
          
@@ -67,5 +64,4 @@
           | Some(x) -> getAllDataFromBufferInner ((GetAllData x) :: dataList,  List.skipWhile IsNotStartByte  buffer |> List.skip numberOfBytesInTelegram )
           | None    -> dataAndBuffer
 
-       let result = getAllDataFromBufferInner ([], buffer)  
-       result
+       getAllDataFromBufferInner ([], buffer)  
