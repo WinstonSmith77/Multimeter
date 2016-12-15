@@ -20,14 +20,20 @@ module BufferHandling
     let MergeBuffers a b =
         List.concat [List.ofSeq a; List.ofSeq b]   
 
-    let GetAllDataFromBuffer buffer =
-       let rec getAllDataFromBufferInner dataAndBuffer =
+    let GetAllValidBlocksFromBuffer buffer =
+       let rec getAllValidBlockFromBufferInner dataAndBuffer =
           let (dataList, buffer) = dataAndBuffer
          
           let parseFrom = FindValidSequence buffer
 
           match(parseFrom) with
-          | Some(x) -> getAllDataFromBufferInner ((GetAllData x) :: dataList,  List.skipWhile IsNotStartByte  buffer |> List.skip numberOfBytesInTelegram )
+          | Some(x) -> getAllValidBlockFromBufferInner (x :: dataList,  List.skipWhile IsNotStartByte  buffer |> List.skip numberOfBytesInTelegram )
           | None    -> dataAndBuffer
 
-       getAllDataFromBufferInner ([], buffer)  
+       getAllValidBlockFromBufferInner ([], buffer)  
+
+    let GetAllDataFromBuffer buffer =
+      let (blocks, remain) = GetAllValidBlocksFromBuffer buffer
+      
+      (List.map (fun input -> GetAllData input) blocks, remain)
+
