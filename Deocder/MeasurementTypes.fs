@@ -2,7 +2,7 @@
 
     open Helper
 
-    type ACOrDC =
+    type Current =
         | AC 
         | DC
 

@@ -76,7 +76,7 @@
                          ]
 
     let currentToPosition = [
-                                (ACOrDC.AC, {Byte = BytesInTelegram.One; Bit = Bits.Four});
-                                (ACOrDC.DC, {Byte = BytesInTelegram.One; Bit = Bits.Three});
+                                (Current.AC, {Byte = BytesInTelegram.One; Bit = Bits.Four});
+                                (Current.DC, {Byte = BytesInTelegram.One; Bit = Bits.Three});
                             ]
 

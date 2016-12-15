@@ -10,7 +10,7 @@
                    }
 
      type AllDisplayedData = {
-        KindOfCurrent : ACOrDC option
+        Current : Current option
         Value : double option
         Factor : Factor
         Unit : string
@@ -33,10 +33,8 @@
         {
             Unit = FindUnit decoded unitToPosition  |> UnitToString
             Factor = { Value = FactorToValue factor;  Text = FactorToString factor }
-            KindOfCurrent = KindOfCurrent decoded currentToPosition
+            Current = KindOfCurrent decoded currentToPosition
             Value = DecodeAllDigits decoded digits DigitToInt  
                 |> Option.map (fun value ->  value * IsNegativeScaling decoded)
                 |> Helper.MapTwoOptionsIfBothAreSome  (fun a b -> a * float(b)) scalingDueToDecimalPointer
         }
-
-    
