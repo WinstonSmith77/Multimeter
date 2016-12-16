@@ -39,12 +39,11 @@
         let valueUnscaled = DecodeAllDigits decoded digits DigitToInt  
                             |> Option.map (fun value ->  value * IsNegativeScaling decoded)
                             |> Helper.MapTwoOptionsIfBothAreSome  (fun a b -> a * float(b)) scalingDueToDecimalPointer
-        let factorValue = FactorToValue factor  
         let unit = FindUnit decoded unitToPosition
 
         {
             Unit =  {Unit = unit; Text = unit |> UnitToString }
             Current = KindOfCurrent decoded currentToPosition
             ValueUnscaled = valueUnscaled
-            Factor = { Value = factorValue;  Text = FactorToString factor }
+            Factor = { Value = FactorToValue factor;  Text = FactorToString factor }
         }
