@@ -47,3 +47,8 @@
             ValueUnscaled = valueUnscaled
             Factor = { Value = FactorToValue factor;  Text = FactorToString factor }
         }
+
+     let ScaledValue unscaled =
+         match unscaled.ValueUnscaled with
+         | Some(x) -> Some(x * 10.0** float(unscaled.Factor.Value))    
+         | None -> None
