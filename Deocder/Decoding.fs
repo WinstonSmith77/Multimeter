@@ -2,7 +2,7 @@
     open TelegramData
     open Digit
     open Helper
-    open MeasurementTypes
+    open MeasurementData
 
     let Decode raw =
        let getIndex rawByte = rawByte / byte(Bits.Five)

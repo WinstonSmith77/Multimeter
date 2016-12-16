@@ -1,7 +1,7 @@
 ﻿module TelegramData
 
     open Digit
-    open MeasurementTypes
+    open MeasurementData
     
     type DecodedBuffer = {  Buffer:byte array }   
 

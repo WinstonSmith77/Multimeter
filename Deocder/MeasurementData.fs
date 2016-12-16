@@ -1,4 +1,4 @@
-﻿module MeasurementTypes
+﻿module MeasurementData
 
     open Helper
 

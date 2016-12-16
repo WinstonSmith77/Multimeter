@@ -18,9 +18,9 @@ namespace Model
 
         public bool IsNegative => Value < 0;
 
-        public bool IsAC => _data.Current.GetOption(MeasurementTypes.Current.DC).Equals(MeasurementTypes.Current.AC);
+        public bool IsAC => _data.Current.GetOption(MeasurementData.Current.DC).Equals(MeasurementData.Current.AC);
 
-        public bool IsDC => _data.Current.GetOption(MeasurementTypes.Current.AC).Equals(MeasurementTypes.Current.DC);
+        public bool IsDC => _data.Current.GetOption(MeasurementData.Current.AC).Equals(MeasurementData.Current.DC);
 
         public string Unit => _data.Unit.Text;
       

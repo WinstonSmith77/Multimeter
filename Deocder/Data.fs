@@ -1,5 +1,5 @@
 ﻿module Data
-    open MeasurementTypes
+    open MeasurementData
     open Decoding
     open Digit
     open TelegramData
