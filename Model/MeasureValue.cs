@@ -22,14 +22,14 @@ namespace Model
 
         public bool IsDC => _data.Current.GetOption(MeasurementTypes.Current.AC).Equals(MeasurementTypes.Current.DC);
 
-        public string Unit => _data.Unit;
+        public string Unit => _data.Unit.Text;
       
 
         public double Value
         {
             get
             {
-                var number = _data.Value.GetOption(double.NaN);
+                var number = _data.ValueUnscaled.GetOption(double.NaN);
                 return number;
             }
         }

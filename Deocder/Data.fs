@@ -9,11 +9,17 @@
                      Text:string
                    }
 
+     type UnitInfo = { 
+                        Text:string
+                        Unit:Unit option
+                     }
+
+
      type AllDisplayedData = {
         Current : Current option
-        Value : double option
+        ValueUnscaled : float option
+        Unit : UnitInfo
         Factor : Factor
-        Unit : string
      }
 
      let GetScalingFromDecimalPoints decimalPointOne decimalPointTwo decimalPointThree decoded =
@@ -30,11 +36,15 @@
         let scalingDueToDecimalPointer = GetScalingFromDecimalPoints decimalPointOne decimalPointTwo decimalPointThree decoded
         let factor = FindFactor decoded factorToPosition
         
+        let valueUnscaled = DecodeAllDigits decoded digits DigitToInt  
+                            |> Option.map (fun value ->  value * IsNegativeScaling decoded)
+                            |> Helper.MapTwoOptionsIfBothAreSome  (fun a b -> a * float(b)) scalingDueToDecimalPointer
+        let factorValue = FactorToValue factor  
+        let unit = FindUnit decoded unitToPosition
+
         {
-            Unit = FindUnit decoded unitToPosition  |> UnitToString
-            Factor = { Value = FactorToValue factor;  Text = FactorToString factor }
+            Unit =  {Unit = unit; Text = unit |> UnitToString }
             Current = KindOfCurrent decoded currentToPosition
-            Value = DecodeAllDigits decoded digits DigitToInt  
-                |> Option.map (fun value ->  value * IsNegativeScaling decoded)
-                |> Helper.MapTwoOptionsIfBothAreSome  (fun a b -> a * float(b)) scalingDueToDecimalPointer
+            ValueUnscaled = valueUnscaled
+            Factor = { Value = factorValue;  Text = FactorToString factor }
         }
