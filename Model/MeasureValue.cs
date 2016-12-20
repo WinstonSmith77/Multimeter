@@ -22,7 +22,7 @@ namespace Model
 
         public bool IsDC => _data.Current.GetOption(MeasurementData.Current.AC).Equals(MeasurementData.Current.DC);
 
-        public string Unit => _data.Unit.Text;
+        public string Unit => _data.Unit.IfHasOption(unit => unit.ToString(), "");
       
 
         public double Value
@@ -34,7 +34,7 @@ namespace Model
             }
         }
 
-        public string Factor => _data.Factor.Text;
+        public string Factor => _data.Factor.ToString();
 
         public MeasureValue(Data.AllDisplayedData data)
         {

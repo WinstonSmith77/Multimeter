@@ -3,23 +3,13 @@
     open Decoding
     open Digit
     open TelegramData
-
-     type Factor = { 
-                     Value:int
-                     Text:string
-                   }
-
-     type UnitInfo = { 
-                        Text:string
-                        Unit:Unit option
-                     }
-
+    open Helper
 
      type AllDisplayedData = {
         Current : Current option
         ValueUnscaled : float option
-        Unit : UnitInfo
-        Factor : Factor
+        Unit : Unit option
+        Factor : Factor option
      }
 
      let GetScalingFromDecimalPoints decimalPointOne decimalPointTwo decimalPointThree decoded =
@@ -34,21 +24,16 @@
         let digits = [digitFour; digitThree; digitTwo; digitOne]
         let decoded = Decode raw
         let scalingDueToDecimalPointer = GetScalingFromDecimalPoints decimalPointOne decimalPointTwo decimalPointThree decoded
-        let factor = FindFactor decoded factorToPosition
         
         let valueUnscaled = DecodeAllDigits decoded digits DigitToInt  
                             |> Option.map (fun value ->  value * IsNegativeScaling decoded)
                             |> Helper.MapTwoOptionsIfBothAreSome  (fun a b -> a * float(b)) scalingDueToDecimalPointer
-        let unit = FindUnit decoded unitToPosition
-
         {
-            Unit =  {Unit = unit; Text = unit |> UnitToString }
+            Unit = FindUnit decoded unitToPosition
             Current = KindOfCurrent decoded currentToPosition
             ValueUnscaled = valueUnscaled
-            Factor = { Value = FactorToValue factor;  Text = FactorToString factor }
+            Factor = FindFactor decoded factorToPosition
         }
 
-     let ScaledValue unscaled =
-         match unscaled.ValueUnscaled with
-         | Some(x) -> Some(x * 10.0** float(unscaled.Factor.Value))    
-         | None -> None
+     let ScaledValue unscaled = MapTwoOptionsIfBothAreSome (fun value (factor:Factor) -> value * 10.0** float(factor.ToValue())) unscaled.ValueUnscaled unscaled.Factor 
+         
