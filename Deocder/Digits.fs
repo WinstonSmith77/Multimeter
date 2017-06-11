@@ -1,5 +1,5 @@
 ﻿module Digit
-    type SevenSegment2=
+    type SevenSegments=
         | Top
         | Center
         | Bottom
@@ -9,22 +9,22 @@
         | BottomRight  
 
     type Digit = {
-        Segments : SevenSegment2 Set
+        Segments : SevenSegments Set
         }
 
-    let One = { Segments = [SevenSegment2.BottomRight; SevenSegment2.TopRight] |> Set.ofList }
-    let Seven = { Segments = Set.add SevenSegment2.Top One.Segments }
-    let Three = { Segments = Set.add SevenSegment2.Bottom Seven.Segments |> Set.add SevenSegment2.Center}
+    let One = { Segments = [SevenSegments.BottomRight; SevenSegments.TopRight] |> Set.ofList }
+    let Seven = { Segments = Set.add SevenSegments.Top One.Segments }
+    let Three = { Segments = Set.add SevenSegments.Bottom Seven.Segments |> Set.add SevenSegments.Center}
 
-    let Two = { Segments = [SevenSegment2.Top; SevenSegment2.Bottom; SevenSegment2.BottomLeft; SevenSegment2.TopRight; SevenSegment2.Center] |> Set.ofList }
-    let Five = { Segments = [SevenSegment2.Top; SevenSegment2.Bottom; SevenSegment2.BottomRight; SevenSegment2.TopLeft; SevenSegment2.Center] |> Set.ofList }
+    let Two = { Segments = [SevenSegments.Top; SevenSegments.Bottom; SevenSegments.BottomLeft; SevenSegments.TopRight; SevenSegments.Center] |> Set.ofList }
+    let Five = { Segments = [SevenSegments.Top; SevenSegments.Bottom; SevenSegments.BottomRight; SevenSegments.TopLeft; SevenSegments.Center] |> Set.ofList }
    
     let Eight = { Segments = Set.union Two.Segments Five.Segments }
-    let Six = { Segments = Set.remove SevenSegment2.TopRight Eight.Segments }
-    let Nine = { Segments = Set.remove SevenSegment2.BottomLeft Eight.Segments }
-    let Zero = { Segments = Set.remove SevenSegment2.Center Eight.Segments }
+    let Six = { Segments = Set.remove SevenSegments.TopRight Eight.Segments }
+    let Nine = { Segments = Set.remove SevenSegments.BottomLeft Eight.Segments }
+    let Zero = { Segments = Set.remove SevenSegments.Center Eight.Segments }
 
-    let Four = { Segments = Set.remove SevenSegment2.Top Nine.Segments |> Set.remove SevenSegment2.Bottom }
+    let Four = { Segments = Set.remove SevenSegments.Top Nine.Segments |> Set.remove SevenSegments.Bottom }
 
     let DigitToInt = [(Zero, 0); (One, 1); (Two, 2); (Three, 3); (Four, 4); (Five, 5); (Six, 6); (Seven, 7); (Eight,8); (Nine, 9)] 
 

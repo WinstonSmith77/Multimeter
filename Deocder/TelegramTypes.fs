@@ -32,13 +32,13 @@
      let postionNegativeSign = {Byte = BytesInTelegram.Two; Bit = Bits.Four}
            
      let digit firstByte secondByte = 
-                    [(SevenSegment2.Top, {Byte = firstByte; Bit = Bits.One});
-                     (SevenSegment2.TopRight, {Byte = secondByte; Bit = Bits.One})
-                     (SevenSegment2.BottomRight, {Byte = secondByte; Bit = Bits.Three})
-                     (SevenSegment2.Bottom, {Byte = secondByte; Bit = Bits.Four})
-                     (SevenSegment2.BottomLeft, {Byte = firstByte; Bit = Bits.Three})
-                     (SevenSegment2.TopLeft, {Byte = firstByte; Bit = Bits.Two})
-                     (SevenSegment2.Center, {Byte = secondByte; Bit = Bits.Two})   ] 
+                    [(SevenSegments.Top, {Byte = firstByte; Bit = Bits.One});
+                     (SevenSegments.TopRight, {Byte = secondByte; Bit = Bits.One})
+                     (SevenSegments.BottomRight, {Byte = secondByte; Bit = Bits.Three})
+                     (SevenSegments.Bottom, {Byte = secondByte; Bit = Bits.Four})
+                     (SevenSegments.BottomLeft, {Byte = firstByte; Bit = Bits.Three})
+                     (SevenSegments.TopLeft, {Byte = firstByte; Bit = Bits.Two})
+                     (SevenSegments.Center, {Byte = secondByte; Bit = Bits.Two})   ] 
 
     let digitOne = digit BytesInTelegram.Eight BytesInTelegram.Nine
     let digitTwo = digit BytesInTelegram.Six BytesInTelegram.Seven
