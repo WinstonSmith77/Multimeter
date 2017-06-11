@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BufferHandlingTest.cs" />
     <Compile Include="MeasureValueTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -75,9 +76,9 @@
       <Project>{2D322817-DE97-4458-8FF6-846FEE76A21B}</Project>
       <Name>Deocder</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interface\Interface.csproj">
-      <Project>{52940EC4-B3F7-41B8-A94F-D5787509590D}</Project>
-      <Name>Interface</Name>
+    <ProjectReference Include="..\Misc\Misc.csproj">
+      <Project>{fd1d5266-3c4f-462d-bdf8-328625c97345}</Project>
+      <Name>Misc</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{f6eba294-a69b-468e-af33-2374fe54d68c}</Project>

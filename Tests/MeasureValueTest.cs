@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Interface;
 using Model;
 using NUnit.Framework;
 
@@ -21,22 +20,22 @@ namespace Tests
         [Test]
         public static void IsNegativ()
         {
-            var value = AllDisplayedData.GetAllData(_bufferIsNegativAndIsDc).Value.Value;
-            value.Should().BeLessThan(0);
+            var value = Data.GetAllData(_bufferIsNegativAndIsDc);
+            value.ValueUnscaled.Value.Should().BeLessThan(0);
         }
 
         [Test]
         public static void IsDC()
         {
-            var value = AllDisplayedData.GetAllData(_bufferIsNegativAndIsDc);
-            value.KindOfCurrent.Should().Be(FSharpOption<DecoderTypes.ACOrDC>.Some(DecoderTypes.ACOrDC.DC));
+            var value = Data.GetAllData(_bufferIsNegativAndIsDc);
+            value.Current.Should().Be(FSharpOption<MeasurementData.Current>.Some(MeasurementData.Current.DC));
         }
 
         [Test]
         public static void IsAC()
         {
-            var value = AllDisplayedData.GetAllData(_bufferIsAC);
-            value.KindOfCurrent.Should().Be(FSharpOption<DecoderTypes.ACOrDC>.Some(DecoderTypes.ACOrDC.AC));
+            var value = Data.GetAllData(_bufferIsAC);
+            value.Current.Should().Be(FSharpOption<MeasurementData.Current>.Some(MeasurementData.Current.AC));
         }
     }
 }

@@ -4,13 +4,20 @@ using Microsoft.FSharp.Core;
 
 namespace Misc
 {
+    using System;
+
     public static class FsharpHelpers
     {
         public static T GetOption<T>(this FSharpOption<T> option, T @default)
         {
+            return option.IfHasOption(item => item, @default);
+        }
+
+        public static R IfHasOption<T, R>(this FSharpOption<T> option, Func<T, R> doIfHas,  R @default)
+        {
             if (FSharpOption<T>.get_IsSome(option))
             {
-                return option.Value;
+                return doIfHas(option.Value);
             }
             return @default;
         }
